@@ -303,7 +303,7 @@
 		?>
 		</a>
 		<?php wp_nav_menu( array( 'container_class' => 'menu-main', 'theme_location' => 'primary' ) ); ?> 
-		<a class="menu-button" href="javascript:ReverseDisplay('menu-main')">Menu</a>
+		<a class="menu-button" href="javascript:ReverseDisplay('menu-main')"><i class="fas fa-bars"></i> Menu</a>
 	</nav>
 	<?php tha_header_before(); ?>
 	<header>
