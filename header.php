@@ -146,7 +146,7 @@
 			right: 30px;
 			text-transform: uppercase;
 			border: 1px solid ;
-			padding: .2em .75em;
+			padding: .5em .75em 0;
 			display:none;
 	  	}
 	  	.menu-button i {
