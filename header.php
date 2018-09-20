@@ -149,9 +149,7 @@
 			padding: .2em .75em;
 			display:none;
 	  	}
-	  	.menu-button::before {
-			content: "\f0c9";
-			font: normal 1em/1em 'FontAwesome';
+	  	.menu-button i {
 	 		float: left;
 			position: relative;
 			margin: 0.05em 0.65em 0.25em 0;
