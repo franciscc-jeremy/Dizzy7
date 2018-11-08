@@ -848,4 +848,35 @@ function my_custom_init() {
     add_post_type_support( 'wpfc_sermon', 'publicize' );
 }
 
+/**
+* Add support for Gutenberg.
+*
+* @link https://wordpress.org/gutenberg/handbook/reference/theme-support/
+*/
+function dizzy7_gutenberg_features() {
+		
+		// Theme supports wide images, galleries and videos.
+		add_theme_support( 'align-wide' );
+		
+		// Make specific theme colors available in the editor.
+    add_theme_support( 'editor-color-palette',
+        array(
+            'name' => 'Main Color',
+            'color' => get_theme_mod( 'diz-theme-main-color'),
+        ),
+        array(
+            'name' => 'Second Color',
+            'color' => get_theme_mod( 'diz-theme-second-color'),
+        ),
+         array(
+            'name' => 'Highlight Color',
+            'color' => get_theme_mod( 'diz-theme-third-color'),
+        ),
+        array(
+            'name' => 'Special Color',
+            'color' => get_theme_mod( 'diz-theme-fourth-color'),
+        )
+    );
+}
 
+add_action( 'after_setup_theme', 'dizzy7_gutenberg_features' );
