@@ -1,0 +1,42 @@
+/* Typography */
+h1, h2, h3 {
+	/*font-weight:bold;*/
+	letter-spacing:0px;
+	text-transform:none;
+	line-height:1.25em;
+}
+h1, h2 {
+	font-family: 'Open Sans Condensed', sans-serif;
+	/*font-weight:700;*/
+	font-size: 3.65em;
+	text-align: center;
+	color: #666;
+}
+header p, aside p, footer p {
+	z-index: 1;
+    position: relative;
+	font-size:1.5em;
+	line-height:1.5em;
+}
+h3 {
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+.entrytext h1, .entrytext h2, .teaser h2, #tinymce h2 {
+	text-align:left;
+	font-weight:bold;
+}
+.entrytext {
+	font-size: 1.5em;
+	line-height: 1.5em;
+}
+.entrytext h2, .teaser h2, #tinymce h2 {
+	font-size: 2.05em;
+	margin-top: 0;
+	margin-bottom: 7px;
+}
+.entrytext h3, #tinymce h3  {
+	font-size: 1.8em;
+	margin-top:0;
+	color:#666;
+	font-weight:normal;
+}
