@@ -21,20 +21,27 @@ header p, aside p, footer p {
 h3 {
 	font-family: 'Open Sans Condensed', sans-serif;
 }
-.entrytext h1, .entrytext h2, .teaser h2, #tinymce h2 {
+.entrytext h1, .entrytext h2, .teaser h2 {
 	text-align:left;
 	font-weight:bold;
+}
+a {
+  	color:var(--main-color);
+	text-decoration:none;
+}
+a:hover {
+	color:var(--second-color);
 }
 .entrytext {
 	font-size: 1.5em;
 	line-height: 1.5em;
 }
-.entrytext h2, .teaser h2, #tinymce h2 {
+.entrytext h2, .teaser h2 {
 	font-size: 2.05em;
 	margin-top: 0;
 	margin-bottom: 7px;
 }
-.entrytext h3, #tinymce h3  {
+.entrytext h3  {
 	font-size: 1.8em;
 	margin-top:0;
 	color:#666;
