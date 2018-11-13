@@ -8,7 +8,7 @@ include_once( dirname( __FILE__ ) . '/include/kirki/kirki.php' );
 //Enque Scripts and styles etc
 function dseven_enqueue_style() {
 	wp_enqueue_style( 'dizzyseven', get_stylesheet_uri() ); 
-	wp_enqueue_style( 'dizzyseven-guttenberg', get_stylesheet_uri() . '/dizzy-gutenberg.css' );
+	wp_enqueue_style( 'dizzyseven-guttenberg', get_template_directory_uri() . '/dizzy-gutenberg.css' );
 }
 
 add_action( 'wp_enqueue_scripts', 'dseven_enqueue_style' );
