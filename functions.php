@@ -8,6 +8,7 @@ include_once( dirname( __FILE__ ) . '/include/kirki/kirki.php' );
 //Enque Scripts and styles etc
 function dseven_enqueue_style() {
 	wp_enqueue_style( 'dizzyseven', get_stylesheet_uri() ); 
+	wp_enqueue_style( 'dizzyseven-guttenberg', get_stylesheet_uri() . '/gutenberg-style.css' );
 }
 
 add_action( 'wp_enqueue_scripts', 'dseven_enqueue_style' );
@@ -19,6 +20,12 @@ function dseven_jquery_enqueue() {
 }
 
 add_action("wp_enqueue_scripts", "dseven_jquery_enqueue", 11);
+
+function dseven_editor_styles() {
+    wp_enqueue_style( 'dizzy-seven-editor-style', get_template_directory_uri() . '/editor.css' );
+}
+
+add_action( 'enqueue_block_editor_assets', 'dseven_editor_styles' );
 
 function dseven_sweetalert_scripts() {
 	wp_register_script('dseven_sweetalert_script', 'https://unpkg.com/sweetalert2@7.2.0/dist/sweetalert2.all.js', 
