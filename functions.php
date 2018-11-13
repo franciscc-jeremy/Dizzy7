@@ -862,10 +862,11 @@ function my_custom_init() {
 */
 function dizzy7_gutenberg_features() {
 		
-		// Theme supports wide images, galleries and videos.
-		add_theme_support( 'align-wide' );
+// Theme supports wide images, galleries and videos.
+    add_theme_support( 'align-wide' );
+    add_theme_support( 'align-full' );
 		
-		// Make specific theme colors available in the editor.
+// Make specific theme colors available in the editor.
     add_theme_support( 'editor-color-palette',
         array(
             'name' => 'Main Color',
