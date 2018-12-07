@@ -32,7 +32,7 @@ get_header(); ?>
 						<span><i class="fab fa-google-plus-g"></i></span> Google +
     				</a>        
     
-					<a class="social-email" href="mailto:?subject=I wanted to share this story with you: || <?php the_title();?>&body=I found this story on   <?php bloginfo('url');?> and I thought you would like it:  <?php the_permalink();?>     Here's an excerpt:<?php the_excerpt();?>"><span><i class="fa fa-share-square"></i></span>Email a Friend</a>
+					<a class="social-email" href="mailto:?subject=I wanted to share this story with you: || <?php the_title();?>&body=I found this story on   <?php bloginfo('url');?> and I thought you would like it:  <?php the_permalink();?>     Here's an excerpt:<?php echo strip_tags( get_the_excerpt() );?>"><span><i class="fa fa-share-square"></i></span>Email a Friend</a>
 
 				</div>
 				<?php endwhile; endif; ?>
