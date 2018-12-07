@@ -355,7 +355,22 @@ footer p {
 		-moz-transition:all 0.35s ease-in-out;
 		-webkit-transition:all 0.35s ease-in-out;
 }
-
+.error404 #searchform {
+    display: table;
+    width: 795px;
+    margin: 5em auto 8em;
+}
+.error404>header {
+    height: 30vh;
+}
+.error404 #s {
+    float: left;
+    max-width: 600px;
+    margin-right: 1em;
+}
+.error404 #searchsubmit {
+    font-size: 1.5em;
+}
 /*  Social  */
 .social-share {
 	display:table;
@@ -509,37 +524,37 @@ main img {
 	}
 	.menu li {
 		float:none;
-    	width: 100%;
-    	border-bottom: 1px dotted #444;
+    		width: 100%;
+    		border-bottom: 1px dotted #444;
   	}
   	.menu li:hover {
-    	border:1px solid transparent;
-    	border-bottom: 1px dotted #444;
+    		border:1px solid transparent;
+    		border-bottom: 1px dotted #444;
 	}
   	.menu .menu-item-has-children::after {
-    	content: "+";
-    	position: absolute;
-    	right: 30px;
-    	top: 1.2em;
+    		content: "+";
+    		position: absolute;
+    		right: 30px;
+    		top: 1.2em;
 		line-height: 2em;
-    	color: var(--highlight-color);
-    	border: 1px solid var(--second-color);
-    	padding: 0px 8px;
+    		color: var(--highlight-color);
+    		border: 1px solid var(--second-color);
+    		padding: 0px 8px;
 	}
 	.menu .menu-item-has-children:hover::after {
 		border: 1px solid var(--main-color);
 	}
   	.menu li a {
-    	max-width:75%;
+    		max-width:75%;
   	}
   	.menu li:hover .sub-menu {
-    	position: relative;
-    	visibility: visible;
+    		position: relative;
+    		visibility: visible;
   	}
   	.sub-menu .current-menu-item::before, .sub-menu .current_page_item::before {
 		left: 0px;
   		margin-top: 6px;
-   }
+   	}
 	.sub-menu::before {
 		display:none;
 	}
@@ -554,9 +569,20 @@ main img {
 		float:left;
 	}
 	.next a p {
-    	right: unset;
-    	left: 145px!important;
-    	text-align: left;
+    		right: unset;
+    		left: 145px!important;
+    		text-align: left;
+	}
+	.rve iframe {
+		margin: 1em auto;
+	}
+	.wp-block-column {
+      		flex-basis: unset!important;
+      		flex-grow: unset;
+      		margin: 0 auto!important;
+    	}
+	.alignfull {
+		width: calc(100% + 67.5%)!important;
 	}
 }
 @media screen and (max-width: 425px) {
@@ -568,5 +594,18 @@ main img {
 	}
 	section header {
 		padding:0px;
+	}
+	.rve iframe {
+		width: 300px;
+		height: auto;
+		display: table;
+	}
+	.alignfull {
+		width: calc(100% + 18.5%)!important;
+    		display: table;
+	}
+	.entrytext p, .entrytext ul {
+    		font-size: 4.45vw;
+    		line-height: 7.25vw;
 	}
 }
