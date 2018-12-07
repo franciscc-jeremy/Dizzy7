@@ -19,8 +19,9 @@ get_header(); ?>
              		<a class="teaser" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark">
 					<?php tha_entry_top(); ?>
 					<?php 
+						$title=get_the_title();
 						if(has_post_thumbnail()):
-						echo the_post_thumbnail();
+						echo the_post_thumbnail(array(425, 9999),array( 'alt' =>$title));
 						else:
 						echo '<img src="https://d3p7wdg430n2je.cloudfront.net/wp-content/uploads/pexels-photo-554609-e1525574269560.jpeg" alt="'; the_title();
 						echo '"/>';
