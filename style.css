@@ -309,6 +309,13 @@ h3 {
 	color:#666;
 	font-weight:normal;
 }
+.entrytext p, .entrytext ul  {
+		font-size: 1.45vw;
+    line-height: 2.25vw;
+}
+.entrytext ul li {
+		margin-left:2.5em;
+}
 .social .fontawesome-text {
 	display: none;
 }
