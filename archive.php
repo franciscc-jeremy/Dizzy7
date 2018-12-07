@@ -27,7 +27,7 @@ get_header(); ?>
 			
                     <abbr class="teaser_date published" title="<?php the_date("m","y");?>"><?php the_date('l jS \of F Y');?></abbr>
                     <div class="format_teaser entry-content">
-					<a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark"><?php the_post_thumbnail('teaaser-image'); ?></a>
+					<a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark"><?php the_post_thumbnail(array(250,250, true),array( 'alt' =>$title)); ?></a>
                     <p><?php the_excerpt() ;?></p>
                     </div>
                     <a class="teaser_link" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="nofollow">Read more →</a>
