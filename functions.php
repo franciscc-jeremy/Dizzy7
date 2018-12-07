@@ -8,15 +8,10 @@ include_once( dirname( __FILE__ ) . '/include/kirki/kirki.php' );
 //Enque Scripts and styles etc
 function dseven_enqueue_style() {
 	wp_enqueue_style( 'dizzyseven', get_stylesheet_uri() ); 
+	wp_enqueue_style( 'dizzyseven-guttenberg', get_template_directory_uri() . '/dizzy-gutenberg.css' );
 }
 
 add_action( 'wp_enqueue_scripts', 'dseven_enqueue_style' );
-
-function dseven_enqueue_animate_style() {
-	wp_enqueue_style( 'dseven_animate', get_template_directory_uri() . '/include/animate-it/css/animations.css' ); 
-}
-
-add_action( 'wp_enqueue_scripts', 'dseven_enqueue_animate_style' );
 
 function dseven_jquery_enqueue() {
    wp_deregister_script('jquery');
@@ -24,7 +19,13 @@ function dseven_jquery_enqueue() {
    wp_enqueue_script('jquery');
 }
 
-add_action('wp_enqueue_scripts', 'dseven_jquery_enqueue', 11);
+add_action("wp_enqueue_scripts", "dseven_jquery_enqueue", 11);
+
+function dseven_editor_styles() {
+    wp_enqueue_style( 'dizzy-seven-editor-style', get_template_directory_uri() . '/editor.css' );
+}
+
+add_action( 'enqueue_block_editor_assets', 'dseven_editor_styles' );
 
 function dseven_sweetalert_scripts() {
 	wp_register_script('dseven_sweetalert_script', 'https://unpkg.com/sweetalert2@7.2.0/dist/sweetalert2.all.js', 
@@ -42,13 +43,6 @@ function dseven_parallaxjs() {
   
 add_action( 'wp_enqueue_scripts', 'dseven_parallaxjs' );
 
-function dseven_animateit() {
-	wp_register_script('dseven_animateit', get_template_directory_uri() . '/include/animate-it/js/css3-animate-it.js', 
-	array('jquery'),'', true);
-	wp_enqueue_script('dseven_animateit');
-}
-  
-add_action( 'wp_enqueue_scripts', 'dseven_animateit' );
 
 //Remove query strings from CSS and JS inclusions
 
@@ -891,3 +885,36 @@ add_action('init', 'my_custom_init');
 function my_custom_init() {
     add_post_type_support( 'wpfc_sermon', 'publicize' );
 }
+/**
+* Add support for Gutenberg.
+*
+* @link https://wordpress.org/gutenberg/handbook/reference/theme-support/
+*/
+function dizzy7_gutenberg_features() {
+		
+// Theme supports wide images, galleries and videos.
+    add_theme_support( 'align-wide' );
+    add_theme_support( 'align-full' );
+		
+// Make specific theme colors available in the editor.
+    add_theme_support( 'editor-color-palette',
+        array(
+            'name' => 'Main Color',
+            'color' => get_theme_mod( 'diz-theme-main-color'),
+        ),
+        array(
+            'name' => 'Second Color',
+            'color' => get_theme_mod( 'diz-theme-second-color'),
+        ),
+         array(
+            'name' => 'Highlight Color',
+            'color' => get_theme_mod( 'diz-theme-third-color'),
+        ),
+        array(
+            'name' => 'Special Color',
+            'color' => get_theme_mod( 'diz-theme-fourth-color'),
+        )
+    );
+}
+
+add_action( 'after_setup_theme', 'dizzy7_gutenberg_features' );
