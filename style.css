@@ -309,13 +309,6 @@ h3 {
 	color:#666;
 	font-weight:normal;
 }
-.entrytext p, .entrytext ul  {
-		font-size: 1.45vw;
-    line-height: 2.25vw;
-}
-.entrytext ul li {
-		margin-left:2.5em;
-}
 .social .fontawesome-text {
 	display: none;
 }
@@ -477,7 +470,20 @@ main img {
 	max-width:100%;
 	height:auto;
 }
-
+/*Gutenberg styles*/
+.alignfull {
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        width: auto;
+        max-width: 1000%;
+}
+ 
+.alignwide {
+        margin-left: calc(25% - 25vw);
+        margin-right: calc(25% - 25vw);
+        width: auto;
+        max-width: 1000%;
+}
 
 /*  Mobile Resets  */
 @media screen and (max-width: 1024px) {
