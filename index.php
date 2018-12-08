@@ -16,7 +16,7 @@ get_header(); ?>
 					
 				<?php if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?> 
 					<article class="item">
-             		<a class="teaser" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark" itemprop="image">
+             		<a class="teaser" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark" itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
 					<?php tha_entry_top(); ?>
 					<?php 
 						$title=get_the_title();
