@@ -22,7 +22,7 @@ get_header(); ?>
 						$title=get_the_title();
 						$schemaimg='url';
 						if(has_post_thumbnail()):
-						echo the_post_thumbnail(array(425, 9999),array( 'alt' =>$title),array( 'itemprop' =>$schemaimg));
+						echo the_post_thumbnail(array(425, 9999),array( 'alt' =>$title, 'itemprop' =>$schemaimg));
 						else:
 						echo '<img src="https://d3p7wdg430n2je.cloudfront.net/wp-content/uploads/pexels-photo-554609-e1525574269560.jpeg" alt="'; the_title();
 						echo '"/>';
