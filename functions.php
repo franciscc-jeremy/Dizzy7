@@ -1035,7 +1035,143 @@ if (get_theme_mod('ds_busemail_setting')) {
 
 add_shortcode('dizzy-schemabiz', 'dizzy_schema_biz_shortcode');
 
+//Schema.org Widget
 
+// Creating the widget 
+
+class d7_schema_info_widget extends WP_Widget {
+	function __construct() {
+		parent::__construct(
+	// Base ID of your widget
+			'd7_schema_info_widget', 
+	// Widget name will appear in UI
+			__('Dizzy Seven Schema Info Widget', 'd7_schema_info_widget_domain'), 
+	// Widget description
+			array( 'description' => __( 'Adds the Dizzy Seven Schema Info Widget to the sidebar', 'd7_schema_info_widget_domain' ), ) 
+		);
+}
+
+// Creating widget front-end
+// This is where the action happens
+public function widget( $args, $instance ) {
+	$title = apply_filters( 'widget_title', $instance['title'] );
+	// before and after widget arguments are defined by themes
+		echo $args['before_widget'];
+			if ( ! empty( $title ) )
+				echo $args['before_title'] . $title . $args['after_title'];
+	// This is where you run the code and display the output
+				echo '<div class="schemabiz" itemscope itemtype="https://schema.org/LocalBusiness">';
+//Business image   
+if (get_theme_mod('diz-nav-logo')) {
+    echo '<figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="';
+    echo get_theme_mod('diz-nav-logo');
+    echo '" alt="';
+    if (get_theme_mod( 'ds_busname_setting', '' )) {
+        echo get_theme_mod( 'ds_busname_setting', '' );
+    } else { 
+        echo wp_title();
+    }
+    echo '" itemprop="url"/></figure>';
+    }
+//Business name
+if (get_theme_mod('ds_busname_setting')) {
+    echo '<h3  itemprop="name">';
+    echo get_theme_mod( 'ds_busname_setting', '' );
+    echo '</h3>';
+} else {
+    echo '<h3  itemprop="name">';
+    echo wp_title();
+    echo '</h3>';
+}
+    echo '<ul>';
+//Business address
+if (get_theme_mod('ds_busadd_setting')) {
+    echo '<li itemprop="address"><i class="fas fa-map-marker-alt prelo"></i> <address>';
+    if (get_theme_mod('ds_busadd_map_setting')) {
+        echo '<a href="';
+        echo get_theme_mod( 'ds_busadd_map_setting', '' );
+        echo '">';
+        echo get_theme_mod( 'ds_busadd_setting', '' );
+        echo '</a>';
+    } else {
+        echo get_theme_mod( 'ds_busadd_setting', '' );
+    }
+    echo '</address></li>';
+}
+//Hours
+if (get_theme_mod('ds_bushours_setting')) {
+    echo '<li itemprop="openingHours" datetime="';
+    echo get_theme_mod( 'ds_bushours_setting', '' );
+    echo '"><i class="fas fa-clock prelo"></i>';
+    echo get_theme_mod( 'ds_bushours_setting', '' );
+    echo '</li>';
+}
+//Phone
+if (get_theme_mod('ds_busphone_setting')) {
+    echo '<li itemprop="telephone"><i class="fas fa-mobile-alt prelo"></i> <a href="tel:';
+    echo get_theme_mod( 'ds_busphone_setting', '' );
+    echo '">';
+    echo get_theme_mod( 'ds_busphone_setting', '' );
+    echo '</a></li>';
+}
+//FAX
+if (get_theme_mod('ds_busfax_setting')) {
+    echo '<li itemprop="faxNumber"><i class="fas fa-fax prelo"></i> ';
+    echo get_theme_mod( 'ds_busfax_setting', '' );
+    echo '</li>';
+}
+//Email
+if (get_theme_mod('ds_busemail_setting')) {
+    echo '<li itemprop="email"><i class="far fa-envelope-open prelo"></i> <a href="mailto:';
+    echo get_theme_mod( 'ds_busemail_setting', '' );
+    echo '">Email ';
+    if (get_theme_mod('ds_busname_setting')) {
+        echo get_theme_mod( 'ds_busname_setting', '' );
+    } else {
+        echo wp_title();
+    }
+    echo '</a></li>';
+}
+//Social networks
+    echo '<li><h3>Connect On Social Media</h3><br/>';
+    echo do_shortcode("[dizzy-social]");
+    echo '</li></ul></div>';
+	echo $args['after_widget'];
+}
+
+// Widget Backend 
+
+public function form( $instance ) {
+	if ( isset( $instance[ 'title' ] ) ) {
+		$title = $instance[ 'title' ];
+	} else {
+		$title = __( 'Contact Us', 'd7_schema_info_widget_domain' );
+	}
+
+// Widget admin form
+	?>
+	<p>
+	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+	<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+	</p>
+	<?php 
+}
+
+// Updating widget replacing old instances with new
+
+public function update( $new_instance, $old_instance ) {
+	$instance = array();
+	$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+	return $instance;
+}
+} // Class ds_social_links_widget ends here
+
+// Register and load the widget
+function d7_schema_info_widget_load_widget() {
+	register_widget( 'd7_schema_info_widget' );
+}
+
+add_action( 'widgets_init', 'd7_schema_info_widget_load_widget' );
 
 function kirki_demo_configuration_sample_styling( $config ) {
     $config['width']        = '40%';
@@ -1052,6 +1188,7 @@ add_action('init', 'my_custom_init');
 function my_custom_init() {
     add_post_type_support( 'wpfc_sermon', 'publicize' );
 }
+
 /**
 * Add support for Gutenberg.
 *
@@ -1059,30 +1196,36 @@ function my_custom_init() {
 */
 function dizzy7_gutenberg_features() {
 		
+
 // Theme supports wide images, galleries and videos.
     add_theme_support( 'align-wide' );
     add_theme_support( 'align-full' );
     add_theme_support( 'wide-images' );
-		
-// Make specific theme colors available in the editor.
-    add_theme_support( 'editor-color-palette',
-        array(
-            'name' => 'Main Color',
-            'color' => get_theme_mod( 'diz-theme-main-color'),
-        ),
-        array(
-            'name' => 'Second Color',
-            'color' => get_theme_mod( 'diz-theme-second-color'),
-        ),
-         array(
-            'name' => 'Highlight Color',
-            'color' => get_theme_mod( 'diz-theme-third-color'),
-        ),
-        array(
-            'name' => 'Special Color',
-            'color' => get_theme_mod( 'diz-theme-fourth-color'),
-        )
-    );
+    
+    add_theme_support(
+		'editor-color-palette', array(
+			array(
+				'name'  => esc_html__( 'Main Color', '@@textdomain' ),
+				'slug' => 'main-color',
+				'color' => get_theme_mod( 'diz-theme-main-color'),
+			),
+			array(
+				'name'  => esc_html__( 'Second Color', '@@textdomain' ),
+				'slug' => 'second-color',
+				'color' => get_theme_mod( 'diz-theme-second-color'),
+			),
+			array(
+				'name'  => esc_html__( 'Highlight Color', '@@textdomain' ),
+				'slug' => 'highlight-color',
+				'color' => get_theme_mod( 'diz-theme-third-color'),
+			),
+			array(
+				'name'  => esc_html__( 'Special Color', '@@textdomain' ),
+				'slug' => 'special-color',
+				'color' => get_theme_mod( 'diz-theme-fourth-color'),
+			)
+		)
+	);
 }
 
 add_action( 'after_setup_theme', 'dizzy7_gutenberg_features' );
