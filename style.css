@@ -266,7 +266,32 @@ cite::before {
 @media screen and (max-width: 782px) {
 		html { margin-top: 0px !important; }
 		html body { margin-top: 0px !important; }
-	}
+}
+/* Colors */
+.has-main-color-background-color {
+     background-color: var(--main-color);
+ }
+.has-main-color-color {
+     color: var(--main-color);
+}
+.has-second-color-background-color {
+     background-color: var(--second-color);
+ }
+.has-second-color-color {
+     color: var(--second-color);
+}
+.has-highlight-color-background-color {
+     background-color: var(--highlight-color);
+ }
+.has-highlight-color-color {
+     color: var(--highlight-color);
+}
+.has-special-color-background-color {
+     background-color: var(--special-color);
+ }
+.has-special-color-color {
+     color: var(--special-color);
+}
 /* Typography */
 h1, h2, h3 {
 	/*font-weight:bold;*/
