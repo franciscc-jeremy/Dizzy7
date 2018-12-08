@@ -15,7 +15,7 @@ get_header(); ?>
 					<!-- The Loop Goes Here-->
 					
 				<?php if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?> 
-					<article class="item">
+					<article class="item hentry">
              		<a class="teaser" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark">
 					<?php tha_entry_top(); ?>
 					<?php 
