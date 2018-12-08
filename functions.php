@@ -375,6 +375,10 @@ add_action( 'init', 'is_first_time');
 add_action('customize_register', 'themedemo_customize');
 
 function themedemo_customize($wp_customize) {
+    $wp_customize->add_section( 'themedemo_demo_settings_schema_biz', array(
+        'title'          => 'Schema.org Business',
+        'priority'       => 35,
+    ) );
     $wp_customize->add_section( 'themedemo_demo_settings', array(
         'title'          => 'Theme Customization',
         'priority'       => 35,
@@ -624,6 +628,80 @@ function themedemo_customize($wp_customize) {
         'section' => 'themedemo_demo_settings_social_media',
         'settings'   => 'av_social_setting',
     ) ) );
+    
+    //*Schema.org Business settings*//
+
+    //*Business Address*//
+
+	$wp_customize->add_setting( 'ds_busadd_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busadd_setting', array(
+        'label'   => 'Business Address',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busadd_setting',
+    ) ) );
+
+    //*Business Google Maps Link*//
+
+	$wp_customize->add_setting( 'ds_busadd_map_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busadd_map_setting', array(
+        'label'   => 'Business Address Google Map Link',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busadd_map_setting',
+    ) ) );
+
+    //*Business Hours*//
+
+	$wp_customize->add_setting( 'ds_bushours_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_bushours_setting', array(
+        'label'   => 'Business Hours',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_bushours_setting',
+    ) ) );
+
+    //*Business Phone*//
+
+	$wp_customize->add_setting( 'ds_busphone_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busphone_setting', array(
+        'label'   => 'Business Phone Number',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busphone_setting',
+    ) ) );
+
+    //*Business Fax*//
+
+	$wp_customize->add_setting( 'ds_busfax_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busfax_setting', array(
+        'label'   => 'Business Fax Number',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busfax_setting',
+    ) ) );
+
+    //*Business Email*//
+
+	$wp_customize->add_setting( 'ds_busemail_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busemail_setting', array(
+        'label'   => 'Business Email Address',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busemail_setting',
+    ) ) );
 }
 	// Typogrophy removed for trouble shooting
 
@@ -870,8 +948,97 @@ function ds_social_links_load_widget() {
 
 add_action( 'widgets_init', 'ds_social_links_load_widget' );
 
+//Business Schema shortcode
+
+function dizzy_schema_biz_shortcode( ) {
+	ob_start();
+	echo '<div class="schemabiz" itemscope itemtype="https://schema.org/LocalBusiness">';
+//Business image   
+if (get_theme_mod('diz-nav-logo')) {
+    echo '<figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="';
+    echo get_theme_mod('diz-nav-logo');
+    echo '" alt="';
+    if (get_theme_mod( 'ds_busname_setting', '' )) {
+        echo get_theme_mod( 'ds_busname_setting', '' );
+    } else { 
+        echo wp_title();
+    }
+    echo '" itemprop="url"/></figure>';
+    }
+//Business name
+if (get_theme_mod('ds_busname_setting')) {
+    echo '<h3  itemprop="name">';
+    echo get_theme_mod( 'ds_busname_setting', '' );
+    echo '</h3>';
+} else {
+    echo '<h3  itemprop="name">';
+    echo wp_title();
+    echo '</h3>';
+}
+    echo '<ul>';
+//Business address
+if (get_theme_mod('ds_busadd_setting')) {
+    echo '<li itemprop="address"><i class="fas fa-map-marker-alt prelo"></i> <address>';
+    if (get_theme_mod('ds_busadd_map_setting')) {
+        echo '<a href="';
+        echo get_theme_mod( 'ds_busadd_map_setting', '' );
+        echo '">';
+        echo get_theme_mod( 'ds_busadd_setting', '' );
+        echo '</a>';
+    } else {
+        echo get_theme_mod( 'ds_busadd_setting', '' );
+    }
+    echo '</address></li>';
+}
+//Hours
+if (get_theme_mod('ds_bushours_setting')) {
+    echo '<li itemprop="openingHours" datetime="';
+    echo get_theme_mod( 'ds_bushours_setting', '' );
+    echo '"><i class="fas fa-clock prelo"></i> ';
+    echo get_theme_mod( 'ds_bushours_setting', '' );
+    echo '</li>';
+}
+//Phone
+if (get_theme_mod('ds_busphone_setting')) {
+    echo '<li itemprop="telephone"><i class="fas fa-mobile-alt prelo"></i> <a href="tel:';
+    echo get_theme_mod( 'ds_busphone_setting', '' );
+    echo '">';
+    echo get_theme_mod( 'ds_busphone_setting', '' );
+    echo '</a></li>';
+}
+//FAX
+if (get_theme_mod('ds_busfax_setting')) {
+    echo '<li itemprop="faxNumber"><i class="fas fa-fax prelo"></i> ';
+    echo get_theme_mod( 'ds_busfax_setting', '' );
+    echo '</li>';
+}
+//Email
+if (get_theme_mod('ds_busemail_setting')) {
+    echo '<li itemprop="email"><i class="far fa-envelope-open prelo"></i> <a href="mailto:';
+    echo get_theme_mod( 'ds_busemail_setting', '' );
+    echo '">Email ';
+    if (get_theme_mod('ds_busname_setting')) {
+        echo get_theme_mod( 'ds_busname_setting', '' );
+    } else {
+        echo wp_title();
+    }
+    echo '</a></li>';
+}
+//Social networks
+    echo '<li><h3>Connect On Social Media</h3><br/>';
+    echo do_shortcode("[dizzy-social]");
+    echo '</li></ul></div>';
+
+    $myvariable = ob_get_clean();
+        return $myvariable;
+}		
+
+add_shortcode('dizzy-schemabiz', 'dizzy_schema_biz_shortcode');
+
+
+
 function kirki_demo_configuration_sample_styling( $config ) {
-    $config['width']        = '30%';
+    $config['width']        = '40%';
     return $config;
 }
 
