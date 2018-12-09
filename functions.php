@@ -974,11 +974,11 @@ if (get_theme_mod('diz-nav-logo')) {
     }
 //Business name
 if (get_theme_mod('ds_busname_setting')) {
-    echo '<h3  itemprop="name">';
+    echo '<h3 class="s-name" itemprop="name">';
     echo get_theme_mod( 'ds_busname_setting', '' );
     echo '</h3>';
 } else {
-    echo '<h3  itemprop="name">';
+    echo '<h3 class="s-name" itemprop="name">';
     echo wp_title();
     echo '</h3>';
 }
@@ -1032,7 +1032,7 @@ if (get_theme_mod('ds_busemail_setting')) {
     echo '</a></li>';
 }
 //Social networks
-    echo '<li><h3>Connect On Social Media</h3><br/>';
+    echo '<li class="sch-social"><h3>Connect On Social Media</h3>';
     echo do_shortcode("[dizzy-social]");
     echo '</li></ul></div>';
 
@@ -1082,11 +1082,11 @@ if (get_theme_mod('diz-nav-logo')) {
     }
 //Business name
 if (get_theme_mod('ds_busname_setting')) {
-    echo '<h3  itemprop="name">';
+    echo '<h3 class="s-name" itemprop="name">';
     echo get_theme_mod( 'ds_busname_setting', '' );
     echo '</h3>';
 } else {
-    echo '<h3  itemprop="name">';
+    echo '<h3 class="s-name" itemprop="name">';
     echo wp_title();
     echo '</h3>';
 }
@@ -1140,7 +1140,7 @@ if (get_theme_mod('ds_busemail_setting')) {
     echo '</a></li>';
 }
 //Social networks
-    echo '<li><h3>Connect On Social Media</h3><br/>';
+    echo '<li class="sch-social"><h3>Connect On Social Media</h3>';
     echo do_shortcode("[dizzy-social]");
     echo '</li></ul></div>';
 	echo $args['after_widget'];
