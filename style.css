@@ -569,6 +569,12 @@ main img {
 .schemabiz .sch-social .social a:hover {
 		background: var(--second-color);
 }
+.widget .schemabiz {
+    padding:0px;
+}
+.widget .schemabiz ul {
+    font-size: .55em;
+}
 /*Gutenberg styles*/
 .alignfull {
         margin-left: calc(50% - 50vw);
