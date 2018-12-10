@@ -15,7 +15,8 @@ add_action( 'wp_enqueue_scripts', 'dseven_enqueue_style' );
 
 function d7_gutenberg_styles() {
 	 wp_enqueue_style( 'dizzyseven-guttenberg', get_template_directory_uri() . '/dizzy-gutenberg.css', false, '@@pkg.version', 'all' );
-	 wp_enqueue_style( 'dizzyseven', get_stylesheet_uri() ); 
+	 wp_enqueue_style( 'dizzyseven-guttenberg-editor', get_template_directory_uri() . '/editor.css', false, '@@pkg.version', 'all' );
+	 //wp_enqueue_style( 'dizzyseven-guttenberg-custom-editor', get_template_directory_uri() . '/custom-styles.css.php', false, '@@pkg.version', 'all' );
 }
 
 add_action( 'enqueue_block_editor_assets', 'd7_gutenberg_styles' );
