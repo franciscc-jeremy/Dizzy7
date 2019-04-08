@@ -1,7 +1,7 @@
 .alignfull {
      margin-left: calc(50% - 50vw);
      margin-right: calc(50% - 50vw);
-     width:calc(100% + 31.5vw);
+    /* width:calc(100% + 31.5vw);*/
 }
 .alignwide {
      margin-left: calc(25% - 25vw);
@@ -10,6 +10,35 @@
 .wp-block-cover, .wp-block-cover-image {
     margin-top:3em;
     margin-bottom:3em;
-    margin-left: calc(50% - 50vw);
-    width: calc(100vw + 0%);
+    margin-left: calc(50% - 50vw)!important;
+    width: calc(100vw + 0%)!important;
+}
+
+
+/*Mobile Resets */
+@media screen and (max-width: 782px) {
+	.alignfull {
+    	margin-left: calc(50% - 55vw);
+    	margin-right: calc(50% - 45.5vw);
+    	/* width: calc(100% + 31.5vw); */
+	}
+	.wp-block-cover, .wp-block-cover-image {
+    	margin-top: 3em;
+    	margin-bottom: 3em;
+    	margin-left: calc(50% - 54.5vw)!important;
+    	width: calc(100vw + 0%)!important;
+	}
+}
+@media screen and (max-width: 425px) {
+	.alignfull {
+    	margin-left: calc(50% - 55vw);
+    	margin-right: calc(50% - 50vw);
+    	/* width: calc(100% + 31.5vw); */
+	}
+	.wp-block-cover, .wp-block-cover-image {
+    	margin-top: 3em;
+    	margin-bottom: 3em;
+    	margin-left: calc(50% - 54.5vw)!important;
+    	width: calc(100vw + 6%)!important;
+	}
 }

@@ -6,7 +6,7 @@
  * @category    Core
  * @author      Aristeides Stathopoulos
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       3.0.0
  */
 
@@ -74,13 +74,16 @@ class Kirki_Modules_Icons {
 	 * @param string $context Lowercase 'section' or 'panel'.
 	 */
 	public function add_icon( $id, $icon, $context = 'section' ) {
+
 		self::$icons[ $context ][ $id ] = trim( $icon );
+
 	}
 
 	/**
 	 * Format the script in a way that will be compatible with WordPress.
 	 */
 	public function customize_controls_enqueue_scripts() {
+
 		$sections = Kirki::$sections;
 		$panels   = Kirki::$panels;
 
@@ -100,5 +103,6 @@ class Kirki_Modules_Icons {
 
 		wp_enqueue_script( 'kirki_panel_and_section_icons', trailingslashit( Kirki::$url ) . 'modules/icons/icons.js', array( 'jquery', 'customize-base', 'customize-controls' ), KIRKI_VERSION, true );
 		wp_localize_script( 'kirki_panel_and_section_icons', 'kirkiIcons', self::$icons );
+
 	}
 }

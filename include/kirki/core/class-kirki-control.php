@@ -6,7 +6,7 @@
  * @category    Core
  * @author      Aristeides Stathopoulos
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  */
 
 /**
@@ -48,7 +48,6 @@ class Kirki_Control {
 
 		// Set the control types.
 		$this->set_control_types();
-
 		// Add the control.
 		$this->add_control( $args );
 
@@ -66,12 +65,12 @@ class Kirki_Control {
 
 		// Set a default class name.
 		$class_name = 'WP_Customize_Control';
-
 		// Get the classname from the array of control classnames.
 		if ( array_key_exists( $args['type'], self::$control_types ) ) {
 			$class_name = self::$control_types[ $args['type'] ];
 		}
 		return $class_name;
+
 	}
 
 	/**
@@ -84,7 +83,6 @@ class Kirki_Control {
 
 		// Get the name of the class we're going to use.
 		$class_name = $this->get_control_class_name( $args );
-
 		// Add the control.
 		$this->wp_customize->add_control( new $class_name( $this->wp_customize, $args['settings'], $args ) );
 
@@ -109,6 +107,7 @@ class Kirki_Control {
 
 		// Make sure the defined classes actually exist.
 		foreach ( self::$control_types as $key => $classname ) {
+
 			if ( ! class_exists( $classname ) ) {
 				unset( self::$control_types[ $key ] );
 			}

@@ -5,7 +5,7 @@
  * @package     Kirki
  * @subpackage  Custom Sections Module
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       2.2.0
  */
 
@@ -21,4 +21,5 @@ class Kirki_Sections_Expanded_Section extends WP_Customize_Section {
 	 * @var string
 	 */
 	public $type = 'kirki-expanded';
+
 }

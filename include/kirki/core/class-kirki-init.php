@@ -6,7 +6,7 @@
  * @category    Core
  * @author      Aristeides Stathopoulos
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       1.0
  */
 
@@ -28,6 +28,7 @@ class Kirki_Init {
 	 * The class constructor.
 	 */
 	public function __construct() {
+
 		self::set_url();
 		add_action( 'after_setup_theme', array( $this, 'set_url' ) );
 		add_action( 'wp_loaded', array( $this, 'add_to_customizer' ), 1 );
@@ -48,6 +49,7 @@ class Kirki_Init {
 	 * @access public
 	 */
 	public static function set_url() {
+
 		if ( Kirki_Util::is_plugin() ) {
 			return;
 		}
@@ -77,8 +79,9 @@ class Kirki_Init {
 	 * @return array
 	 */
 	public function default_control_types( $control_types = array() ) {
+
 		$this->control_types = array(
-			'checkbox'              => 'Kirki_Control_Checkbox',
+			'checkbox'              => 'WP_Customize_Control',
 			'kirki-background'      => 'Kirki_Control_Background',
 			'code_editor'           => 'Kirki_Control_Code',
 			'kirki-color'           => 'Kirki_Control_Color',
@@ -95,6 +98,7 @@ class Kirki_Init {
 			'kirki-multicheck'      => 'Kirki_Control_MultiCheck',
 			'kirki-number'          => 'Kirki_Control_Number',
 			'kirki-palette'         => 'Kirki_Control_Palette',
+			'kirki-preset'          => 'Kirki_Control_Preset',
 			'kirki-radio'           => 'Kirki_Control_Radio',
 			'kirki-radio-buttonset' => 'Kirki_Control_Radio_ButtonSet',
 			'kirki-radio-image'     => 'Kirki_Control_Radio_Image',
@@ -108,10 +112,11 @@ class Kirki_Init {
 			'kirki-toggle'          => 'Kirki_Control_Toggle',
 			'kirki-typography'      => 'Kirki_Control_Typography',
 			'image'                 => 'Kirki_Control_Image',
-			'cropped_image'         => 'Kirki_Control_Cropped_Image',
-			'upload'                => 'Kirki_Control_Upload',
+			'cropped_image'         => 'WP_Customize_Cropped_Image_Control',
+			'upload'                => 'WP_Customize_Upload_Control',
 		);
 		return array_merge( $this->control_types, $control_types );
+
 	}
 
 	/**
@@ -137,9 +142,6 @@ class Kirki_Init {
 		}
 
 		$this->control_types = $this->default_control_types();
-		if ( ! class_exists( 'WP_Customize_Code_Editor_Control' ) ) {
-			unset( $this->control_types['code_editor'] );
-		}
 		foreach ( $this->control_types as $key => $classname ) {
 			if ( ! class_exists( $classname ) ) {
 				unset( $this->control_types[ $key ] );
@@ -212,6 +214,7 @@ class Kirki_Init {
 	 * @var object The WordPress Customizer object.
 	 */
 	public function add_fields() {
+
 		global $wp_customize;
 		foreach ( Kirki::$fields as $args ) {
 
@@ -238,6 +241,7 @@ class Kirki_Init {
 	 * @since 2.0.0
 	 */
 	private function fields_from_filters() {
+
 		$fields = apply_filters( 'kirki_controls', array() );
 		$fields = apply_filters( 'kirki_fields', $fields );
 
@@ -258,6 +262,7 @@ class Kirki_Init {
 	 * @return bool
 	 */
 	public static function is_plugin() {
+		// Return result using the Kirki_Util class.
 		return Kirki_Util::is_plugin();
 	}
 
@@ -271,9 +276,9 @@ class Kirki_Init {
 	 * @return array Formatted as array( 'variable-name' => value ).
 	 */
 	public static function get_variables() {
-
 		// Log error for developers.
-		_doing_it_wrong( __METHOD__, esc_html__( 'We detected you\'re using Kirki_Init::get_variables(). Please use Kirki_Util::get_variables() instead.', 'kirki' ), '3.0.10' );
+		_doing_it_wrong( __METHOD__, esc_attr__( 'We detected you\'re using Kirki_Init::get_variables(). Please use Kirki_Util::get_variables() instead.', 'kirki' ), '3.0.10' );
+		// Return result using the Kirki_Util class.
 		return Kirki_Util::get_variables();
 	}
 

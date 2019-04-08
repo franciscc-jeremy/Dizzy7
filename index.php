@@ -14,21 +14,24 @@ get_header(); ?>
 											
 					<!-- The Loop Goes Here-->
 					
-				<?php if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?> 
-					<article class="item">
-             		<a class="teaser" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark">
+				<?php query_posts('offset=1'); if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?> 
+					<article class="item animatedParent">
+             		<a class="teaser animated fadeInUp slow" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark" itemprop="image">
 					<?php tha_entry_top(); ?>
 					<?php 
 						$title=get_the_title();
+						$schemaimg='url';
+						$id=get_the_ID();
+						$cats=get_the_category();
 						if(has_post_thumbnail()):
-						echo the_post_thumbnail(array(425, 9999),array( 'alt' =>$title));
+						echo the_post_thumbnail(array(425, 9999),array( 'alt' =>$title, 'itemprop' =>$schemaimg));
 						else:
 						echo '<img src="https://d3p7wdg430n2je.cloudfront.net/wp-content/uploads/pexels-photo-554609-e1525574269560.jpeg" alt="'; the_title();
 						echo '"/>';
 						endif;
 					?>
-					<header><h3><?php the_title();?></h3></header>
-					<span class="teaser-meta-container"><?php if (get_comments_number()==0) { ?><?php } else {?><span class="loop-comments"><?php comments_number('0', '1', '%' );?></span><?php }?><span class="loop-categories"><?php echo $cats[0]->name; ?></span></span></a>
+					<header><h3><span class="loop-categories"><?php echo $cats[0]->name; ?></span><?php the_title();?></h3></header>
+					<span class="teaser-meta-container"><?php if (get_comments_number()==0) { ?><?php } else {?><span class="loop-comments"><?php comments_number('0', '1', '%' );?></span><?php }?></span></a>
 					<?php tha_entry_bottom(); ?>
 					</article>
 				<?php endwhile; endif; ?>	

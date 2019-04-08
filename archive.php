@@ -21,17 +21,19 @@ get_header(); ?>
 					<!-- The Loop Goes Here-->
 					
 				<?php if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?> 	
-             	<article <?php post_class('teaser'); ?>>
+             	<article <?php post_class('teaser animatedParent'); ?>>
+					<div class="animated fadeInUp">
 					<?php tha_entry_top(); ?>
 					<header><h2 class="entry-title"><?php the_title() ;?></h2></header>
 			
                     <abbr class="teaser_date published" title="<?php the_date("m","y");?>"><?php the_date('l jS \of F Y');?></abbr>
                     <div class="format_teaser entry-content">
-					<a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark"><?php the_post_thumbnail(array(250,250, true),array( 'alt' =>$title)); ?></a>
+					<a title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" rel="bookmark"><?php $title=get_the_title(); $schemaimg='url'; the_post_thumbnail(array(250,250, true),array( 'alt' =>$title, 'itemprop' =>$schemaimg)); ?></a>
                     <p><?php the_excerpt() ;?></p>
                     </div>
                     <a class="teaser_link" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="nofollow">Read more →</a>
 					<?php tha_entry_bottom(); ?>
+					</div>
                 </article>
 				<?php endwhile; endif; ?>	
 					<!--The Loop Ends Here-->

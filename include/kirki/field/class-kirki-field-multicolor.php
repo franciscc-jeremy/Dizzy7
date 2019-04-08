@@ -5,7 +5,7 @@
  * @package     Kirki
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       2.2.7
  */
 
@@ -62,6 +62,8 @@ class Kirki_Field_Multicolor extends Kirki_Field {
 	 * @return array The value.
 	 */
 	public function sanitize( $value ) {
+
 		return $value;
+
 	}
 }

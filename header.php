@@ -253,7 +253,7 @@
 		}
 		@media screen and (max-width: 425px) {
 			.grid {
-				display:table;
+				display:table!important;
 			}
 			.grid article { 
 				margin: 3em 0;
@@ -284,7 +284,7 @@
 	<a id="top"></a>
 	<a class="to-top off" href="#top"><i class="fas fa-chevron-up"></i></a>
 <?php tha_body_top(); ?>
-	<nav id="nav">
+	<nav id="nav" class="animatedParent">
 		<a class="logo" href="<?php bloginfo('url');?>/"><?php if (get_theme_mod('diz-nav-logo')) {
 				echo '<img src="';
 				echo get_theme_mod( 'diz-nav-logo', '' ); 
@@ -300,26 +300,45 @@
 			}
 		?>
 		</a>
-		<?php wp_nav_menu( array( 'container_class' => 'menu-main', 'theme_location' => 'primary' ) ); ?> 
-		<a class="menu-button" href="javascript:ReverseDisplay('menu-main')"><i class="fas fa-bars"></i> Menu</a>
+		<?php wp_nav_menu( array( 'container_class' => 'menu-main animated fadeInRight slow', 'theme_location' => 'primary' ) ); ?> 
+		<a class="menu-button animated fadeInRight slow" href="javascript:ReverseDisplay('menu-main')"><i class="fas fa-bars"></i> Menu</a>
 	</nav>
 	<?php tha_header_before(); ?>
-	<header>
+	<header class="animatedParent" data-sequence="500">
 		<?php tha_header_top(); ?>
-		<?php if (is_front_page() || is_home()) {?>
-	        <?php echo get_theme_mod( 'diz-header-content', 'Place your Header Content Here' ); ?>
+		<?php if (is_front_page()) {?> 
+			<?php echo get_theme_mod( 'diz-header-content', 'Place your Header Content Here' ); ?>
+		<?php } else if(is_home()) {?>
+				<h1>Latest Posts from <?php if (get_theme_mod( 'ds_busname_setting', '' )) {
+			    echo get_theme_mod( 'ds_busname_setting', '' );
+		    		} else {
+				echo wp_title();
+				}?></h1>
+	        <?php $the_query = new WP_Query( 'posts_per_page=1' ); ?><?php while ($the_query -> have_posts()) : $the_query -> the_post(); ?>
+                <div class="latest-post blur animated fadeInDown slow" data-id="1">
+					<h2 class="title"><?php the_title();?><?php if ( get_post_meta(get_the_id(), 'subtitle', true) ) { ?><br/><span class="subtitle"><?php echo get_post_meta(get_the_id(), 'subtitle', true) ?></span><?php } ?></h2>
+                <?php echo get_avatar( get_the_author_meta('ID'), 60); ?>
+                <p>Posted By: <?php the_author_posts_link(); ?> <br/><span><?php the_date();?></span></p>
+                <p class="cat"><?php $cats=get_the_category(); echo $cats[0]->name; ?></p>
+                <a href="<?php the_permalink();?>" class="button">Read More</a>
+				</div>
+            <?php endwhile; wp_reset_postdata();?>
      	<?php } else if (is_author()) {?>
-			<h1 class="author-archive archive-title title"><span>Posts By:</span><br/><?php echo get_avatar( get_the_author_meta( 'ID' ), 96 ); ?><?php the_author_posts_link(); ?></h1>
+			<h1 class="author-archive archive-title title blur animated fadeInDown slow" data-id="2"><span>Posts By:</span><br/><?php echo get_avatar( get_the_author_meta( 'ID' ), 96 ); ?><?php the_author_posts_link(); ?></h1>
 		<?php } else if ( is_post_type_archive('jetpack-portfolio') ) { ?>
 			<!--Post Type Archive-->
-			<h1 class="title"><?php post_type_archive_title(); ?></h1>
+			<h1 class="title blur animated fadeInDown slow" data-id="2"><?php post_type_archive_title(); ?></h1>
 		<?php } else if (is_archive()) {?>
-			<h1 class="title"><?php single_cat_title( '', true ); ?></h1>
+			<h1 class="title blur animated fadeInDown slow" data-id="2"><?php single_cat_title( '', true ); ?></h1>
 		<?php } else if (is_single()) { ?>
-			<h1 class="title"><?php the_title();?><?php if ( get_post_meta(get_the_id(), 'subtitle', true) ) { ?><br/><span class="subtitle"><?php echo get_post_meta(get_the_id(), 'subtitle', true) ?></span><?php } ?></h1>
-			<p class="author"><?php echo get_avatar( get_the_author_meta( 'ID' ), 96 ); ?><span>By: </span> <?php the_author_posts_link(); ?></p>
+			<h1 class="title blur animated fadeInDown slow" data-id="2"><?php the_title();?><?php if ( get_post_meta(get_the_id(), 'subtitle', true) ) { ?><br/><span class="subtitle"><?php echo get_post_meta(get_the_id(), 'subtitle', true) ?></span><?php } ?></h1>
+			<?php if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?>
+			<?php echo get_avatar( get_the_author_meta('ID'), 96); ?>
+		<p>Posted By: <?php the_author_posts_link(); ?> <br/><span><?php the_date();?></span></p>
+				<p class="cat"><?php $cats=get_the_category(); echo $cats[0]->name; ?></p>
+			<?php endwhile; endif; ?>
 		<?php } else if(is_page()) { ?>
-			<h1 class="title"><?php the_title();?><?php if ( get_post_meta(get_the_id(), 'subtitle', true) ) { ?><br/><span class="subtitle"><?php echo get_post_meta(get_the_id(), 'subtitle', true) ?></span><?php } ?></h1>
+			<h1 class="title blur animated fadeInDown slow" data-id="2"><?php the_title();?><?php if ( get_post_meta(get_the_id(), 'subtitle', true) ) { ?><br/><span class="subtitle"><?php echo get_post_meta(get_the_id(), 'subtitle', true) ?></span><?php } ?></h1>
 		<?php }?>    
 		<?php tha_header_bottom(); ?>
 		<a id="trigger"></a>

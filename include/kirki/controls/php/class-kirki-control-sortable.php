@@ -5,7 +5,7 @@
  * @package     Kirki
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       1.0
  */
 
@@ -66,6 +66,7 @@ class Kirki_Control_Sortable extends Kirki_Control_Base {
 				<# }); #>
 			</ul>
 		</label>
+
 		<?php
 	}
 }

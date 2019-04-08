@@ -6,7 +6,7 @@
  * @category    Core
  * @author      Aristeides Stathopoulos
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  */
 
 /**
@@ -139,14 +139,15 @@ final class Kirki_Config {
 	 * @return Kirki_Config
 	 */
 	public static function get_instance( $id = 'global', $args = array() ) {
-		if ( empty( $id ) ) {
-			$id = 'global';
-		}
+		$id = trim( esc_attr( $id ) );
+		$id = ( '' === $id ) ? 'global' : $id;
+
 		$id_md5 = md5( $id );
 		if ( ! isset( self::$instances[ $id_md5 ] ) ) {
 			self::$instances[ $id_md5 ] = new self( $id, $args );
 		}
 		return self::$instances[ $id_md5 ];
+
 	}
 
 	/**
@@ -172,6 +173,7 @@ final class Kirki_Config {
 	 * @return array
 	 */
 	public function get_config() {
+
 		return $this->config_final;
 	}
 }

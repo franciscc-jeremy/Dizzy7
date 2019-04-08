@@ -14,7 +14,7 @@
 		<?php tha_footer_bottom(); ?>
 		
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800%7cOpen+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 
 		
@@ -71,41 +71,46 @@
 			}
 		</style>
 		<script>// <![CDATA[
-        jQuery(document).ready( function() {
-		jQuery(window).scroll( function() {
-                if (jQuery(window).scrollTop() > jQuery('#trigger').offset().top)
-                    jQuery('#nav').addClass('floating');
-                else
-                    jQuery('#nav').removeClass('floating');
-            } );
-        } );
+        	jQuery(document).ready( function() {
+				jQuery(window).scroll( function() {
+                	if (jQuery(window).scrollTop() > jQuery('#trigger').offset().top)
+                    	jQuery('#nav').addClass('floating');
+                	else
+                    	jQuery('#nav').removeClass('floating');
+            	} );
+				
+				jQuery(window).scroll( function() {
+                	if ( jQuery(window).scrollTop() >  jQuery('#trigger').offset().top)
+						jQuery('.to-top').removeClass('off');
+                	else
+						jQuery('.to-top').addClass('off');
+            	} );
+				
+        	} );
 			// ]]>
 		</script>
+		
 		<script>
-			// Find all YouTube videos
-			var $allVideos = $("iframe[src^='//player.vimeo.com'], iframe[src^='//www.youtube.com'], iframe[src^='//soundfaith.com']"),
-			// The element that is fluid width
-			$fluidEl = $("body");
-			// Figure out and save aspect ratio for each video
-			$allVideos.each(function() {
-				$(this)
-					.data('aspectRatio', this.height / this.width)
-			// and remove the hard coded width/height
-				    .removeAttr('height')
-					.removeAttr('width');
-			});
-			// When the window is resized
-			$(window).resize(function() {
-				var newWidth = $fluidEl.width();
-			// Resize all videos according to their own aspect ratio
-				$allVideos.each(function() {
-					var $el = $(this);
-						$el
-					    .width(newWidth)
-						.height(newWidth * $el.data('aspectRatio'));
+			// Find all iframes
+				var $iframes = $( "iframe" );
+ 
+			// Find &amp;amp;#x26; save the aspect ratio for all iframes
+				$iframes.each(function () {
+				  $( this ).data( "ratio", this.height / this.width )
+		    // Remove the hardcoded width &amp;amp;#x26; height attributes
+				    .removeAttr( "width" )
+				    .removeAttr( "height" );
 				});
-			// Kick off one resize to fix all videos on page load
-			}).resize();
+			// Resize the iframes when the window is resized
+				$( window ).resize( function () {
+				  $iframes.each( function() {
+		    // Get the parent container&amp;amp;#x27;s width
+			    var width = $( this ).parent().width();
+			      $( this ).width( width )
+			      .height( width * $( this ).data( "ratio" ) );
+			    });
+			// Resize to fix all iframes on page load.
+				}).resize();
 		</script>
 		<script>// <![CDATA[
 			function HideContent(d) { document.getElementById(d).style.display = "none"; } function ShowContent(d) { document.getElementById(d).style.display = "table"; } function ReverseDisplay(d) { if(document.getElementById(d).style.display == "table") { document.getElementById(d).style.display = "none"; } else { document.getElementById(d).style.display = "table"; } }
@@ -120,7 +125,23 @@
     			}, 1500);
 			});
 		</script>
-		<?php if (is_front_page() || is_archive()) {?>
+		
+		<script>
+			$(document).ready(function(){
+				$.doTimeout(2500, function(){
+					$('.repeat.go').removeClass('go');
+						return true;
+				});
+				$.doTimeout(2520, function(){
+					$('.repeat').addClass('go');
+					return true;
+				});
+	
+			});
+</script>
+
+		
+		<?php if (is_front_page() || is_home() || is_archive()) {?>
 		<script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
 		
 		<script>

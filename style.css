@@ -4,7 +4,7 @@ Theme URI: http://jeremyfrancis.sendasites.com/dizzy-seven
 Author: Jeremy Francis
 Author URI: http://jeremyfrancis.sendasites.com
 Description: Custom Theme Framework For People and Coders
-Version: 1.0
+Version: 1.5
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: css grid, html 5
@@ -14,6 +14,7 @@ Text Domain: dizzy-seven
 /* Base Layout */
 html { 
 	margin-top: 0px !important; 
+	overflow-x:hidden;
 }
 html body { 
 	margin-top: 0px !important; 
@@ -44,7 +45,7 @@ main aside {
     display: grid;
 	grid-gap: 35px;
 	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-	grid-template-rows: repeat(2, auto);
+	grid-template-rows: repeat(15, auto);
 	grid-auto-rows: 75px;
     grid-auto-flow: dense;
 }
@@ -104,7 +105,7 @@ main aside {
 }
 .entrytext blockquote::before {
     content: "\f086";
-	font: normal 3em/1em 'FontAwesome';
+	font: 400 2.5em/1em Font Awesome\ 5 Free;
 	color: var(--main-color);
 	position: absolute;
 	top: -33px;
@@ -115,6 +116,9 @@ main aside {
 	display: block;
 	z-index: 0;
 	text-shadow: -10px 0px 0px #fff, 10px 0px 0px #fff;
+}
+.entrytext iframe {
+	max-width:100%;
 }
 cite {
     color: var(--main-color);
@@ -128,7 +132,7 @@ cite {
 }
 cite::before {
 	content: "\f054";
-	font: normal 1em/1em 'FontAwesome';
+	font: normal 1em/1em Font Awesome\ 5 Free;
 	margin: 0 .25em 0 -1.25em;
 }
 .callout {
@@ -188,6 +192,7 @@ cite::before {
     float:none;
     background:#fff;
     box-sizing:border-box;
+	overflow:hidden;
 }
 .archive .teaser img, .category .teaser img, .search-results .teaser img {
     width: 35%;
@@ -250,7 +255,14 @@ cite::before {
   float:left;
 }
 .teaser .loop-categories {
-  	margin: 6px 20px;
+  	position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: uppercase;
+	color: #fff;
+    font-weight: normal;
+    font-size: .55em;
 }
 .archive .teaser header {
 	padding:0px;
@@ -266,7 +278,32 @@ cite::before {
 @media screen and (max-width: 782px) {
 		html { margin-top: 0px !important; }
 		html body { margin-top: 0px !important; }
-	}
+}
+/* Colors */
+.has-main-color-background-color {
+     background-color: var(--main-color);
+ }
+.has-main-color-color {
+     color: var(--main-color);
+}
+.has-second-color-background-color {
+     background-color: var(--second-color);
+ }
+.has-second-color-color {
+     color: var(--second-color);
+}
+.has-highlight-color-background-color {
+     background-color: var(--highlight-color);
+ }
+.has-highlight-color-color {
+     color: var(--highlight-color);
+}
+.has-special-color-background-color {
+     background-color: var(--special-color);
+ }
+.has-special-color-color {
+     color: var(--special-color);
+}
 /* Typography */
 h1, h2, h3 {
 	/*font-weight:bold;*/
@@ -308,13 +345,6 @@ h3 {
 	margin-top:0;
 	color:#666;
 	font-weight:normal;
-}
-.entrytext p, .entrytext ul  {
-		font-size: 1.45vw;
-    line-height: 2.25vw;
-}
-.entrytext ul li {
-		margin-left:2.5em;
 }
 .social .fontawesome-text {
 	display: none;
@@ -362,7 +392,22 @@ footer p {
 		-moz-transition:all 0.35s ease-in-out;
 		-webkit-transition:all 0.35s ease-in-out;
 }
-
+.error404 #searchform {
+    display: table;
+    width: 795px;
+    margin: 5em auto 8em;
+}
+.error404>header {
+    height: 30vh;
+}
+.error404 #s {
+    float: left;
+    max-width: 600px;
+    margin-right: 1em;
+}
+.error404 #searchsubmit {
+    font-size: 1.5em;
+}
 /*  Social  */
 .social-share {
 	display:table;
@@ -477,7 +522,100 @@ main img {
 	max-width:100%;
 	height:auto;
 }
-
+/*Schema Widget*/
+.schemabiz figure img {
+    float: left;
+    margin: 0 0.5em 0 -1.75em;
+    height: 45px;
+}
+.schemabiz {
+		float: none;
+    margin: 0 auto;
+    font-size: 2.5em;
+    line-height: 1em;
+    box-sizing: border-box;
+    padding: 1em 3em;
+}
+.schemabiz .s-name {
+    font-size: 1em;
+}
+.schemabiz address {
+		font-style:normal;
+}
+.schemabiz ul li {
+		list-style: none;
+    float: none;
+    display: table;
+    margin: 0.15em 0 -.15em 2em;
+    position: relative;
+}
+.schemabiz li .prelo {
+	float: left;
+    position: absolute;
+    top: 50%;
+    left: -1.85em;
+    transform: translateY(-50%);
+    color: var(--main-color);
+    width: 1.5em;
+    text-align: center;
+}
+.schemabiz li a, #schemabiz li {
+	color:#777;
+}
+.schemabiz .sch-social {
+	margin: 1.75em -1.5em;
+}
+.schemabiz .sch-social h3 {
+    margin: 0;
+}
+.schemabiz .sch-social .social a {
+    background: var(--main-color);
+    margin: 0 .15em;
+    padding: .2em;
+    color: #fff!important;
+    width: 1.5em;
+    display: table;
+    float: left;
+    text-align: center;
+}
+.schemabiz .sch-social .social a:hover {
+		background: var(--second-color);
+}
+.widget .schemabiz {
+    padding:0px;
+}
+.widget .schemabiz ul {
+    font-size: .55em;
+}
+/*Title Animation*/
+.blur {
+		-webkit-filter: blur(100px) brightness(200%);
+    filter: blur(100px) brightness(200%);
+    -moz-transition: all 2.5s ease-in-out;
+    -webkit-transition: all 2.5s ease-in-out;
+    opacity: 0;
+}
+.blur.go {
+		-webkit-filter: blur(0px) brightness(100%)!important;
+    filter: blur(0px) brightness(100%)!important;
+    -moz-transition: all 2.5s ease-in-out;
+    -webkit-transition: all 2.5s ease-in-out;
+    opacity: 1!important;
+}
+/*Gutenberg styles -> Moved to Guttenberg Style Sheet
+.alignfull {
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        width: auto;
+        max-width: 1000%;
+}
+ 
+.alignwide {
+        margin-left: calc(25% - 25vw);
+        margin-right: calc(25% - 25vw);
+        width: auto;
+        max-width: 1000%;
+}*/
 
 /*  Mobile Resets  */
 @media screen and (max-width: 1024px) {
@@ -492,6 +630,9 @@ main img {
 	}
 }
 @media screen and (max-width: 782px) {
+	body>nav {
+		display:table;
+	}
 	#menu-main, #nav div>div>ul {
 		width:100%;
 	}
@@ -503,37 +644,40 @@ main img {
 	}
 	.menu li {
 		float:none;
-    	width: 100%;
-    	border-bottom: 1px dotted #444;
+    		width: 100%;
+    		border-bottom: 1px dotted #444;
   	}
   	.menu li:hover {
-    	border:1px solid transparent;
-    	border-bottom: 1px dotted #444;
+    		border:1px solid transparent;
+    		border-bottom: 1px dotted #444;
 	}
   	.menu .menu-item-has-children::after {
-    	content: "+";
-    	position: absolute;
-    	right: 30px;
-    	top: 1.2em;
-		line-height: 2em;
-    	color: var(--highlight-color);
-    	border: 1px solid var(--second-color);
-    	padding: 0px 8px;
+    		content: "+";
+    		position: absolute;
+    		right: 30px;
+    		top: 1.2em;
+			line-height: 2em;
+    		color: var(--highlight-color);
+    		border: 1px solid var(--second-color);
+    		padding: 0px 8px;
 	}
 	.menu .menu-item-has-children:hover::after {
 		border: 1px solid var(--main-color);
 	}
   	.menu li a {
-    	max-width:75%;
+    		max-width:75%;
   	}
   	.menu li:hover .sub-menu {
-    	position: relative;
-    	visibility: visible;
+    		position: relative;
+    		visibility: visible;
+			width: 100%;
+    		background: none;
+			float:none;
   	}
   	.sub-menu .current-menu-item::before, .sub-menu .current_page_item::before {
 		left: 0px;
   		margin-top: 6px;
-   }
+   	}
 	.sub-menu::before {
 		display:none;
 	}
@@ -548,9 +692,26 @@ main img {
 		float:left;
 	}
 	.next a p {
-    	right: unset;
-    	left: 145px!important;
-    	text-align: left;
+    		right: unset;
+    		left: 145px!important;
+    		text-align: left;
+	}
+	.rve iframe {
+		margin: 1em auto;
+	}
+	.wp-block-column {
+      		flex-basis: unset!important;
+      		flex-grow: unset;
+      		margin: 0 auto!important;
+    	}
+	/*.alignfull {
+		width: calc(100% + 67.5%)!important;
+	}*/
+	.grid>header {
+		grid-column:-1/8;
+	}
+	.grid>header h1 {
+		color:#333;
 	}
 }
 @media screen and (max-width: 425px) {
@@ -562,5 +723,36 @@ main img {
 	}
 	section header {
 		padding:0px;
+	}
+	.grid {
+		display:table!important;
+		width:100%;
+	}
+	.rve iframe {
+		width: 300px;
+		height: auto;
+		display: table;
+	}
+	/*.alignfull {
+		width: calc(100% + 18.5%)!important;
+    		display: table;
+	}*/
+	.entrytext p, .entrytext ul {
+    		font-size: 4.45vw;
+    		line-height: 7.25vw;
+	}
+	.social-share {
+    		font-size: 5vw;
+	}
+	.social-share a {
+		display: inline-block;
+    	height: 36px;
+    	width: 36px;
+    	overflow: hidden;
+	}
+	.social-share span {
+		margin: 6px 5px 10px 9px;
+    	display: table;
+    	float: left;
 	}
 }

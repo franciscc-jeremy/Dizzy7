@@ -6,7 +6,7 @@
  * @category    Modules
  * @author      Aristeides Stathopoulos
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       3.0.0
  */
 
@@ -59,21 +59,12 @@ class Kirki_Modules_CSS {
 	protected $css_to_file;
 
 	/**
-	 * Should we enqueue font-awesome?
-	 *
-	 * @static
-	 * @access protected
-	 * @since 3.0.26
-	 * @var bool
-	 */
-	protected static $enqueue_fa = false;
-
-	/**
 	 * Constructor
 	 *
 	 * @access protected
 	 */
 	protected function __construct() {
+
 		$class_files = array(
 			'Kirki_CSS_To_File'                         => '/class-kirki-css-to-file.php',
 			'Kirki_Modules_CSS_Generator'               => '/class-kirki-modules-css-generator.php',
@@ -94,7 +85,9 @@ class Kirki_Modules_CSS {
 				include_once wp_normalize_path( dirname( __FILE__ ) . $file );
 			}
 		}
+
 		add_action( 'init', array( $this, 'init' ) );
+
 	}
 
 	/**
@@ -119,9 +112,10 @@ class Kirki_Modules_CSS {
 	 * @access public
 	 */
 	public function init() {
-		global $wp_customize;
 
 		Kirki_Modules_Webfonts::get_instance();
+
+		global $wp_customize;
 
 		$config   = apply_filters( 'kirki_config', array() );
 		$priority = 999;
@@ -136,10 +130,8 @@ class Kirki_Modules_CSS {
 
 		$method = apply_filters( 'kirki_dynamic_css_method', 'inline' );
 		if ( $wp_customize ) {
-
 			// If we're in the customizer, load inline no matter what.
 			add_action( 'wp_enqueue_scripts', array( $this, 'inline_dynamic_css' ), $priority );
-			add_action( 'enqueue_block_editor_assets', array( $this, 'inline_dynamic_css' ), $priority );
 
 			// If we're using file method, on save write the new styles.
 			if ( 'file' === $method ) {
@@ -150,13 +142,10 @@ class Kirki_Modules_CSS {
 		}
 
 		if ( 'file' === $method ) {
-
 			// Attempt to write the CSS to file.
 			$this->css_to_file = new Kirki_CSS_To_File();
-
 			// If we succesd, load this file.
 			$failed = get_transient( 'kirki_css_write_to_file_failed' );
-
 			// If writing CSS to file hasn't failed, just enqueue this file.
 			if ( ! $failed ) {
 				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_compiled_file' ), $priority );
@@ -175,9 +164,6 @@ class Kirki_Modules_CSS {
 
 		// If we got this far then add styles inline.
 		add_action( 'wp_enqueue_scripts', array( $this, 'inline_dynamic_css' ), $priority );
-
-		// Admin styles, adds Gutenberg compatibility.
-		add_action( 'admin_enqueue_scripts', array( $this, 'inline_dynamic_css' ), $priority );
 	}
 
 	/**
@@ -187,7 +173,9 @@ class Kirki_Modules_CSS {
 	 * @since 3.0.0
 	 */
 	public function enqueue_compiled_file() {
+
 		wp_enqueue_style( 'kirki-styles', $this->css_to_file->get_url(), array(), $this->css_to_file->get_timestamp() );
+
 	}
 	/**
 	 * Adds inline styles.
@@ -204,20 +192,11 @@ class Kirki_Modules_CSS {
 				$styles = self::loop_controls( $config_id );
 				$styles = apply_filters( "kirki_{$config_id}_dynamic_css", $styles );
 				if ( ! empty( $styles ) ) {
-					$stylesheet = apply_filters( "kirki_{$config_id}_stylesheet", false );
-					if ( $stylesheet ) {
-						wp_add_inline_style( $stylesheet, $styles );
-						continue;
-					}
 					wp_enqueue_style( 'kirki-styles-' . $config_id, trailingslashit( Kirki::$url ) . 'assets/css/kirki-styles.css', array(), KIRKI_VERSION );
 					wp_add_inline_style( 'kirki-styles-' . $config_id, $styles );
 				}
 			}
 			$this->processed = true;
-		}
-
-		if ( self::$enqueue_fa && apply_filters( 'kirki_load_fontawesome', true ) ) {
-			wp_enqueue_script( 'kirki-fontawesome-font', 'https://use.fontawesome.com/30858dc40a.js', array(), '4.0.7', true );
 		}
 	}
 
@@ -269,7 +248,6 @@ class Kirki_Modules_CSS {
 			}
 
 			if ( true === apply_filters( "kirki_{$config_id}_css_skip_hidden", true ) ) {
-
 				// Only continue if field dependencies are met.
 				if ( ! empty( $field['required'] ) ) {
 					$valid = true;
@@ -305,30 +283,5 @@ class Kirki_Modules_CSS {
 		if ( is_array( $css ) ) {
 			return Kirki_Modules_CSS_Generator::styles_parse( Kirki_Modules_CSS_Generator::add_prefixes( $css ) );
 		}
-	}
-
-	/**
-	 * Runs when we're adding a font-awesome field to allow enqueueing the
-	 * fontawesome script on the frontend.
-	 *
-	 * @static
-	 * @since 3.0.26
-	 * @access public
-	 * @return void
-	 */
-	public static function add_fontawesome_script() {
-		self::$enqueue_fa = true;
-	}
-
-	/**
-	 * Check if FontAwesome should be loaded.
-	 *
-	 * @static
-	 * @since 3.0.35
-	 * @access public
-	 * @return void
-	 */
-	public static function get_enqueue_fa() {
-		return self::$enqueue_fa;
 	}
 }

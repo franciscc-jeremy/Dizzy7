@@ -5,7 +5,7 @@
  * @package     Kirki
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       2.2.0
  */
 
@@ -20,6 +20,7 @@ class Kirki_Output_Property_Background_Position extends Kirki_Output_Property {
 	 * @access protected
 	 */
 	protected function process_value() {
+
 		$this->value = trim( $this->value );
 
 		// If you use calc() there, I suppose you know what you're doing.
@@ -46,10 +47,10 @@ class Kirki_Output_Property_Background_Position extends Kirki_Output_Property {
 
 			// If x is not left/center/right, we need to sanitize it.
 			if ( ! in_array( $x, $x_dimensions, true ) ) {
-				$x = sanitize_text_field( $x );
+				$x = Kirki_Sanitize_Values::css_dimension( $x );
 			}
 			if ( ! in_array( $y, $y_dimensions, true ) ) {
-				$y = sanitize_text_field( $y );
+				$y = Kirki_Sanitize_Values::css_dimension( $y );
 			}
 			$this->value = $x . ' ' . $y;
 			return;

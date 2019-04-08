@@ -1,0 +1,31 @@
+/*Customizer Styles*/
+.wp-full-overlay.expanded {
+    margin-left: 0;
+}
+.customize-control-code_editor .CodeMirror, .customize-control-code_editor textarea {
+	min-height: 80vh;
+}
+#customize-controls {
+    margin-top: 0;
+    width: 35%;
+    /* left: 0; */
+}
+#available-menu-items, #available-widgets {
+    left: 35%!important;
+}
+.wp-full-overlay.collapsed .wp-full-overlay-sidebar {
+    margin-left: -35%;
+}
+.preview-tablet .wp-full-overlay-main {
+    margin: auto 20px auto 40%;
+    width: 720px;
+    height: 1080px;
+    max-height: 100%;
+    max-width: 100%;
+    left: unset;
+}
+.preview-mobile .wp-full-overlay-main {
+    margin: auto 0 auto 50%;
+    width: 320px;
+    left: unset;
+}

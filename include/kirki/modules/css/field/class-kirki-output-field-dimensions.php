@@ -5,7 +5,7 @@
  * @package     Kirki
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       2.2.0
  */
 
@@ -22,6 +22,7 @@ class Kirki_Output_Field_Dimensions extends Kirki_Output {
 	 * @param array $value  The field's value.
 	 */
 	protected function process_output( $output, $value ) {
+
 		$output = wp_parse_args(
 			$output, array(
 				'element'     => '',
@@ -36,7 +37,7 @@ class Kirki_Output_Field_Dimensions extends Kirki_Output {
 			return;
 		}
 
-		foreach ( array_keys( $value ) as $key ) {
+		foreach ( $value as $key => $sub_value ) {
 
 			$property = ( empty( $output['property'] ) ) ? $key : $output['property'] . '-' . $key;
 			if ( isset( $output['choice'] ) && $output['property'] ) {

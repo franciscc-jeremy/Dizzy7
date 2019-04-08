@@ -8,15 +8,36 @@ include_once( dirname( __FILE__ ) . '/include/kirki/kirki.php' );
 //Enque Scripts and styles etc
 function dseven_enqueue_style() {
 	wp_enqueue_style( 'dizzyseven', get_stylesheet_uri() ); 
+	wp_enqueue_style( 'dizzyseven-guttenberg', get_template_directory_uri() . '/dizzy-gutenberg.css' );
+	wp_enqueue_style( 'dizzyseven-animateit', get_template_directory_uri() . '/include/animate-it/css/animations.css' );
+	if (get_theme_mod('diz-custom-typography-css')) {
+	     wp_enqueue_style( 'dizzyseven-guttenberg-custom-editor', get_template_directory_uri() . '/custom-styles.css.php', false, '@@pkg.version', 'all' );
+	 }
+	if (get_theme_mod('google_font_setting')) {
+	     wp_enqueue_style( 'dizzyseven-google-font', get_theme_mod( 'google_font_setting', '' ), false, '@@pkg.version', 'all' );
+	 }
+	if (get_theme_mod('custom_font_setting')) {
+	     wp_enqueue_style( 'dizzyseven-custom-font', get_theme_mod( 'custom_font_setting', '' ), false, '@@pkg.version', 'all' );
+	 }
 }
 
 add_action( 'wp_enqueue_scripts', 'dseven_enqueue_style' );
 
-function dseven_enqueue_animate_style() {
-	wp_enqueue_style( 'dseven_animate', get_template_directory_uri() . '/include/animate-it/css/animations.css' ); 
+function d7_gutenberg_styles() {
+	 wp_enqueue_style( 'dizzyseven-guttenberg', get_template_directory_uri() . '/dizzy-gutenberg.css', false, '@@pkg.version', 'all' );
+	 wp_enqueue_style( 'dizzyseven-guttenberg-editor', get_template_directory_uri() . '/editor.css', false, '@@pkg.version', 'all' );
+	 if (get_theme_mod('diz-custom-typography-css')) {
+	     wp_enqueue_style( 'dizzyseven-guttenberg-custom-editor', get_template_directory_uri() . '/custom-styles.css.php', false, '@@pkg.version', 'all' );
+	 }
+	 if (get_theme_mod('google_font_setting')) {
+	     wp_enqueue_style( 'dizzyseven-google-font', get_theme_mod( 'google_font_setting', '' ), false, '@@pkg.version', 'all' );
+	 }
+	 if (get_theme_mod('custom_font_setting')) {
+	     wp_enqueue_style( 'dizzyseven-custom-font', get_theme_mod( 'custom_font_setting', '' ), false, '@@pkg.version', 'all' );
+	 }
 }
 
-add_action( 'wp_enqueue_scripts', 'dseven_enqueue_animate_style' );
+add_action( 'enqueue_block_editor_assets', 'd7_gutenberg_styles' );
 
 function dseven_jquery_enqueue() {
    wp_deregister_script('jquery');
@@ -24,7 +45,13 @@ function dseven_jquery_enqueue() {
    wp_enqueue_script('jquery');
 }
 
-add_action('wp_enqueue_scripts', 'dseven_jquery_enqueue', 11);
+add_action("wp_enqueue_scripts", "dseven_jquery_enqueue", 11);
+
+function dseven_editor_styles() {
+    wp_enqueue_style( 'dizzy-seven-editor-style', get_template_directory_uri() . '/editor.css' );
+}
+
+add_action( 'enqueue_block_editor_assets', 'dseven_editor_styles' );
 
 function dseven_sweetalert_scripts() {
 	wp_register_script('dseven_sweetalert_script', 'https://unpkg.com/sweetalert2@7.2.0/dist/sweetalert2.all.js', 
@@ -34,22 +61,29 @@ function dseven_sweetalert_scripts() {
   
 add_action( 'wp_enqueue_scripts', 'dseven_sweetalert_scripts' );
 
+function dseven_animate_it() {
+	wp_register_script('dseven_animate_it', get_template_directory_uri() . '/include/parallax/parallax.min.js', 
+	array('jquery'),'', true);
+	wp_enqueue_script('dseven_animate_it');
+}
+  
+add_action( 'wp_enqueue_scripts', 'dseven_animate_it' );
+
 function dseven_parallaxjs() {
-	wp_register_script('dseven_parallaxjs', get_template_directory_uri() . '/include/parallax/parallax.min.js', 
+	wp_register_script('dseven_parallaxjs', get_template_directory_uri() . '/include/animate-it/js/css3-animate-it.js', 
 	array('jquery'),'', true);
 	wp_enqueue_script('dseven_parallaxjs');
 }
   
 add_action( 'wp_enqueue_scripts', 'dseven_parallaxjs' );
 
-function dseven_animateit() {
-	wp_register_script('dseven_animateit', get_template_directory_uri() . '/include/animate-it/js/css3-animate-it.js', 
-	array('jquery'),'', true);
-	wp_enqueue_script('dseven_animateit');
-}
-  
-add_action( 'wp_enqueue_scripts', 'dseven_animateit' );
+function dseven_customizer_stylesheet() {
 
+	wp_register_style( 'dseven-customizer-css', get_template_directory_uri() . '/customizer-style.css', NULL, NULL, 'all' );
+	wp_enqueue_style( 'dseven-customizer-css' );
+
+}
+add_action( 'customize_controls_print_styles', 'dseven_customizer_stylesheet' );
 //Remove query strings from CSS and JS inclusions
 
 function _remove_script_version($src) {
@@ -381,6 +415,10 @@ add_action( 'init', 'is_first_time');
 add_action('customize_register', 'themedemo_customize');
 
 function themedemo_customize($wp_customize) {
+    $wp_customize->add_section( 'themedemo_demo_settings_schema_biz', array(
+        'title'          => 'Schema.org Business',
+        'priority'       => 35,
+    ) );
     $wp_customize->add_section( 'themedemo_demo_settings', array(
         'title'          => 'Theme Customization',
         'priority'       => 35,
@@ -469,6 +507,23 @@ function themedemo_customize($wp_customize) {
 		'type'    => 'textarea',
     ) ) );
 
+//Typography CSS//
+
+	Kirki::add_field( 'kirki_demo_typography', array(
+		'type'        => 'code',
+		'settings'    => 'diz-custom-typography-css',
+		'label'       => __( 'Custom Typography', 'kirki' ),
+		'help'        => __( 'Place Font CSS here', 'kirki-demo' ),
+		'description' => __( 'Place Font CSS here', 'kirki-demo' ),
+		'section'     => 'themedemo_demo_settings_design',
+		'default'     => '.editor-post-title',
+		'priority'    => 11,
+		'choices'     => [
+		'language' => 'css',
+        'theme'    => 'monokai',
+        'height'   => 500,
+    	],
+	) );
 	//Custom CSS//
 
 	Kirki::add_field( 'kirki_demo', array(
@@ -480,11 +535,11 @@ function themedemo_customize($wp_customize) {
 		'section'     => 'themedemo_demo_settings_design',
 		'default'     => '',
 		'priority'    => 10,
-		'choices'     => array(
+		'choices'     => [
 		'language' => 'css',
         'theme'    => 'monokai',
-        'height'   => 500,
-    	),
+        'height'   => 1800,
+    	],
 	) );
 	
 	//Root Colors//
@@ -544,6 +599,34 @@ function themedemo_customize($wp_customize) {
 		'alpha' => true,
 			),
 	) );
+
+    //*Custom Fonts*//
+        
+        //*Google*//
+        
+	$wp_customize->add_setting( 'google_font_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'google_font_setting', array(
+        'label'   => 'Google Font',
+        'section' => 'themedemo_demo_settings_design',
+        'settings'   => 'google_font_setting',
+		'priority'    => 12,
+    ) ) );
+
+        //*Custom*//
+    
+    $wp_customize->add_setting( 'custom_font_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'custom_font_setting', array(
+        'label'   => 'Custom Font',
+        'section' => 'themedemo_demo_settings_design',
+        'settings'   => 'custom_font_setting',
+		'priority'    => 13,
+    ) ) );
 
 	//*Social Networking Links*//
 
@@ -629,6 +712,80 @@ function themedemo_customize($wp_customize) {
         'label'   => 'AVVO Page URL',
         'section' => 'themedemo_demo_settings_social_media',
         'settings'   => 'av_social_setting',
+    ) ) );
+    
+    //*Schema.org Business settings*//
+
+    //*Business Address*//
+
+	$wp_customize->add_setting( 'ds_busadd_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busadd_setting', array(
+        'label'   => 'Business Address',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busadd_setting',
+    ) ) );
+
+    //*Business Google Maps Link*//
+
+	$wp_customize->add_setting( 'ds_busadd_map_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busadd_map_setting', array(
+        'label'   => 'Business Address Google Map Link',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busadd_map_setting',
+    ) ) );
+
+    //*Business Hours*//
+
+	$wp_customize->add_setting( 'ds_bushours_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_bushours_setting', array(
+        'label'   => 'Business Hours',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_bushours_setting',
+    ) ) );
+
+    //*Business Phone*//
+
+	$wp_customize->add_setting( 'ds_busphone_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busphone_setting', array(
+        'label'   => 'Business Phone Number',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busphone_setting',
+    ) ) );
+
+    //*Business Fax*//
+
+	$wp_customize->add_setting( 'ds_busfax_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busfax_setting', array(
+        'label'   => 'Business Fax Number',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busfax_setting',
+    ) ) );
+
+    //*Business Email*//
+
+	$wp_customize->add_setting( 'ds_busemail_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ds_busemail_setting', array(
+        'label'   => 'Business Email Address',
+        'section' => 'themedemo_demo_settings_schema_biz',
+        'settings'   => 'ds_busemail_setting',
     ) ) );
 }
 	// Typogrophy removed for trouble shooting
@@ -876,8 +1033,233 @@ function ds_social_links_load_widget() {
 
 add_action( 'widgets_init', 'ds_social_links_load_widget' );
 
+//Business Schema shortcode
+
+function dizzy_schema_biz_shortcode( ) {
+	ob_start();
+	echo '<div class="schemabiz" itemscope itemtype="https://schema.org/LocalBusiness">';
+//Business image   
+if (get_theme_mod('diz-nav-logo')) {
+    echo '<figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="';
+    echo get_theme_mod('diz-nav-logo');
+    echo '" alt="';
+    if (get_theme_mod( 'ds_busname_setting', '' )) {
+        echo get_theme_mod( 'ds_busname_setting', '' );
+    } else { 
+        echo wp_title();
+    }
+    echo '" itemprop="url"/></figure>';
+    }
+//Business name
+if (get_theme_mod('ds_busname_setting')) {
+    echo '<h3 class="s-name" itemprop="name">';
+    echo get_theme_mod( 'ds_busname_setting', '' );
+    echo '</h3>';
+} else {
+    echo '<h3 class="s-name" itemprop="name">';
+    echo wp_title();
+    echo '</h3>';
+}
+    echo '<ul>';
+//Business address
+if (get_theme_mod('ds_busadd_setting')) {
+    echo '<li itemprop="address"><i class="fas fa-map-marker-alt prelo"></i> <address>';
+    if (get_theme_mod('ds_busadd_map_setting')) {
+        echo '<a href="';
+        echo get_theme_mod( 'ds_busadd_map_setting', '' );
+        echo '">';
+        echo get_theme_mod( 'ds_busadd_setting', '' );
+        echo '</a>';
+    } else {
+        echo get_theme_mod( 'ds_busadd_setting', '' );
+    }
+    echo '</address></li>';
+}
+//Hours
+if (get_theme_mod('ds_bushours_setting')) {
+    echo '<li itemprop="openingHours" datetime="';
+    echo get_theme_mod( 'ds_bushours_setting', '' );
+    echo '"><i class="fas fa-clock prelo"></i> ';
+    echo get_theme_mod( 'ds_bushours_setting', '' );
+    echo '</li>';
+}
+//Phone
+if (get_theme_mod('ds_busphone_setting')) {
+    echo '<li itemprop="telephone"><i class="fas fa-mobile-alt prelo"></i> <a href="tel:';
+    echo get_theme_mod( 'ds_busphone_setting', '' );
+    echo '">';
+    echo get_theme_mod( 'ds_busphone_setting', '' );
+    echo '</a></li>';
+}
+//FAX
+if (get_theme_mod('ds_busfax_setting')) {
+    echo '<li itemprop="faxNumber"><i class="fas fa-fax prelo"></i> ';
+    echo get_theme_mod( 'ds_busfax_setting', '' );
+    echo '</li>';
+}
+//Email
+if (get_theme_mod('ds_busemail_setting')) {
+    echo '<li itemprop="email"><i class="far fa-envelope-open prelo"></i> <a href="mailto:';
+    echo get_theme_mod( 'ds_busemail_setting', '' );
+    echo '">Email ';
+    if (get_theme_mod('ds_busname_setting')) {
+        echo get_theme_mod( 'ds_busname_setting', '' );
+    } else {
+        echo wp_title();
+    }
+    echo '</a></li>';
+}
+//Social networks
+    echo '<li class="sch-social"><h3>Connect On Social Media</h3>';
+    echo do_shortcode("[dizzy-social]");
+    echo '</li></ul></div>';
+
+    $myvariable = ob_get_clean();
+        return $myvariable;
+}		
+
+add_shortcode('dizzy-schemabiz', 'dizzy_schema_biz_shortcode');
+
+//Schema.org Widget
+
+// Creating the widget 
+
+class d7_schema_info_widget extends WP_Widget {
+	function __construct() {
+		parent::__construct(
+	// Base ID of your widget
+			'd7_schema_info_widget', 
+	// Widget name will appear in UI
+			__('Dizzy Seven Schema Info Widget', 'd7_schema_info_widget_domain'), 
+	// Widget description
+			array( 'description' => __( 'Adds the Dizzy Seven Schema Info Widget to the sidebar', 'd7_schema_info_widget_domain' ), ) 
+		);
+}
+
+// Creating widget front-end
+// This is where the action happens
+public function widget( $args, $instance ) {
+	$title = apply_filters( 'widget_title', $instance['title'] );
+	// before and after widget arguments are defined by themes
+		echo $args['before_widget'];
+			if ( ! empty( $title ) )
+				echo $args['before_title'] . $title . $args['after_title'];
+	// This is where you run the code and display the output
+				echo '<div class="schemabiz" itemscope itemtype="https://schema.org/LocalBusiness">';
+//Business image   
+if (get_theme_mod('diz-nav-logo')) {
+    echo '<figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject"><img src="';
+    echo get_theme_mod('diz-nav-logo');
+    echo '" alt="';
+    if (get_theme_mod( 'ds_busname_setting', '' )) {
+        echo get_theme_mod( 'ds_busname_setting', '' );
+    } else { 
+        echo wp_title();
+    }
+    echo '" itemprop="url"/></figure>';
+    }
+//Business name
+if (get_theme_mod('ds_busname_setting')) {
+    echo '<h3 class="s-name" itemprop="name">';
+    echo get_theme_mod( 'ds_busname_setting', '' );
+    echo '</h3>';
+} else {
+    echo '<h3 class="s-name" itemprop="name">';
+    echo wp_title();
+    echo '</h3>';
+}
+    echo '<ul>';
+//Business address
+if (get_theme_mod('ds_busadd_setting')) {
+    echo '<li itemprop="address"><i class="fas fa-map-marker-alt prelo"></i> <address>';
+    if (get_theme_mod('ds_busadd_map_setting')) {
+        echo '<a href="';
+        echo get_theme_mod( 'ds_busadd_map_setting', '' );
+        echo '">';
+        echo get_theme_mod( 'ds_busadd_setting', '' );
+        echo '</a>';
+    } else {
+        echo get_theme_mod( 'ds_busadd_setting', '' );
+    }
+    echo '</address></li>';
+}
+//Hours
+if (get_theme_mod('ds_bushours_setting')) {
+    echo '<li itemprop="openingHours" datetime="';
+    echo get_theme_mod( 'ds_bushours_setting', '' );
+    echo '"><i class="fas fa-clock prelo"></i>';
+    echo get_theme_mod( 'ds_bushours_setting', '' );
+    echo '</li>';
+}
+//Phone
+if (get_theme_mod('ds_busphone_setting')) {
+    echo '<li itemprop="telephone"><i class="fas fa-mobile-alt prelo"></i> <a href="tel:';
+    echo get_theme_mod( 'ds_busphone_setting', '' );
+    echo '">';
+    echo get_theme_mod( 'ds_busphone_setting', '' );
+    echo '</a></li>';
+}
+//FAX
+if (get_theme_mod('ds_busfax_setting')) {
+    echo '<li itemprop="faxNumber"><i class="fas fa-fax prelo"></i> ';
+    echo get_theme_mod( 'ds_busfax_setting', '' );
+    echo '</li>';
+}
+//Email
+if (get_theme_mod('ds_busemail_setting')) {
+    echo '<li itemprop="email"><i class="far fa-envelope-open prelo"></i> <a href="mailto:';
+    echo get_theme_mod( 'ds_busemail_setting', '' );
+    echo '">Email ';
+    if (get_theme_mod('ds_busname_setting')) {
+        echo get_theme_mod( 'ds_busname_setting', '' );
+    } else {
+        echo wp_title();
+    }
+    echo '</a></li>';
+}
+//Social networks
+    echo '<li class="sch-social"><h3>Connect On Social Media</h3>';
+    echo do_shortcode("[dizzy-social]");
+    echo '</li></ul></div>';
+	echo $args['after_widget'];
+}
+
+// Widget Backend 
+
+public function form( $instance ) {
+	if ( isset( $instance[ 'title' ] ) ) {
+		$title = $instance[ 'title' ];
+	} else {
+		$title = __( 'Contact Us', 'd7_schema_info_widget_domain' );
+	}
+
+// Widget admin form
+	?>
+	<p>
+	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+	<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+	</p>
+	<?php 
+}
+
+// Updating widget replacing old instances with new
+
+public function update( $new_instance, $old_instance ) {
+	$instance = array();
+	$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+	return $instance;
+}
+} // Class ds_social_links_widget ends here
+
+// Register and load the widget
+function d7_schema_info_widget_load_widget() {
+	register_widget( 'd7_schema_info_widget' );
+}
+
+add_action( 'widgets_init', 'd7_schema_info_widget_load_widget' );
+
 function kirki_demo_configuration_sample_styling( $config ) {
-    $config['width']        = '30%';
+    $config['width']        = '40%';
     return $config;
 }
 
@@ -891,3 +1273,44 @@ add_action('init', 'my_custom_init');
 function my_custom_init() {
     add_post_type_support( 'wpfc_sermon', 'publicize' );
 }
+
+/**
+* Add support for Gutenberg.
+*
+* @link https://wordpress.org/gutenberg/handbook/reference/theme-support/
+*/
+function dizzy7_gutenberg_features() {
+		
+
+// Theme supports wide images, galleries and videos.
+    add_theme_support( 'align-wide' );
+    add_theme_support( 'align-full' );
+    add_theme_support( 'wide-images' );
+    
+    add_theme_support(
+		'editor-color-palette', array(
+			array(
+				'name'  => esc_html__( 'Main Color', '@@textdomain' ),
+				'slug' => 'main-color',
+				'color' => get_theme_mod( 'diz-theme-main-color'),
+			),
+			array(
+				'name'  => esc_html__( 'Second Color', '@@textdomain' ),
+				'slug' => 'second-color',
+				'color' => get_theme_mod( 'diz-theme-second-color'),
+			),
+			array(
+				'name'  => esc_html__( 'Highlight Color', '@@textdomain' ),
+				'slug' => 'highlight-color',
+				'color' => get_theme_mod( 'diz-theme-third-color'),
+			),
+			array(
+				'name'  => esc_html__( 'Special Color', '@@textdomain' ),
+				'slug' => 'special-color',
+				'color' => get_theme_mod( 'diz-theme-fourth-color'),
+			)
+		)
+	);
+}
+
+add_action( 'after_setup_theme', 'dizzy7_gutenberg_features' );

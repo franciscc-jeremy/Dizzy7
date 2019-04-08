@@ -5,7 +5,7 @@
  * @package     Kirki
  * @subpackage  Controls
  * @copyright   Copyright (c) 2017, Aristeides Stathopoulos
- * @license    https://opensource.org/licenses/MIT
+ * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       3.0.0
  */
 
@@ -20,7 +20,9 @@ class Kirki_Field_FontAwesome extends Kirki_Field {
 	 * @access protected
 	 */
 	protected function set_type() {
+
 		$this->type = 'kirki-fontawesome';
+
 	}
 
 	/**
@@ -35,6 +37,7 @@ class Kirki_Field_FontAwesome extends Kirki_Field {
 		if ( ! empty( $this->sanitize_callback ) ) {
 			return;
 		}
-		$this->sanitize_callback = 'sanitize_text_field';
+		$this->sanitize_callback = 'esc_attr';
+
 	}
 }
