@@ -62,7 +62,11 @@ main aside {
 	top: 50%;
 	transform: translateY(-50%);
 }
-
+figure {
+	box-sizing: border-box;
+	margin: 0;
+	max-width: 672px;
+}
 .alignleft {
 		display:table;
 		float:left;
