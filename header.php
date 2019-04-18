@@ -42,6 +42,9 @@
 		a {
 			text-decoration:none;
 		}
+		.animated {
+			opacity:0;
+		}
 		body>nav, main, footer, header {
 			width:100%;
 			margin:0;
