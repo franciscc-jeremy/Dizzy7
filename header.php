@@ -45,6 +45,9 @@
 		.animated {
 			opacity:0;
 		}
+		.go {
+			opacity:1;
+		}
 		body>nav, main, footer, header {
 			width:100%;
 			margin:0;

@@ -14,7 +14,18 @@ get_header(); ?>
 											
 					<!-- The Loop Goes Here-->
 					
-				<?php query_posts('offset=1'); if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?> 
+				<?php //if ( is_home() ) :
+    			//			query_posts( 'offset=1' );
+	  			//	  	elseif ( is_front_page() ) :
+    			//			query_posts( 'offset=0' );
+      			//	  endif; 
+			        query_posts(array(
+    					is_front_page(),
+						is_home('offset=1'),
+										)
+							   );
+	 	  				  if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?>
+ 
 					<article class="item animatedParent">
              		<a class="teaser animated fadeInUp slow" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark" itemprop="image">
 					<?php tha_entry_top(); ?>
