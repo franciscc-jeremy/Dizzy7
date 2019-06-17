@@ -8,7 +8,7 @@ get_header(); ?>
 		<?php if (have_posts()) : while (have_posts()) : the_post();?>
 		<section>
 			<article>
-				<header>
+				<header id="article-header">
 					<?php tha_content_top(); ?>
 				</header>
 				<?php tha_entry_before(); ?>

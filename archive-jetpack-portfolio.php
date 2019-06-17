@@ -1,6 +1,8 @@
 <?php
-/**
- * The main template file
+/*
+
+Template Name: Jetpack Portfolio template
+
 */
 get_header(); ?>
 	<main>
@@ -11,20 +13,11 @@ get_header(); ?>
 					<?php if(get_theme_mod( 'diz-before-content')){?><?php echo get_theme_mod( 'diz-before-content', 'Place your Content here. It will appear above the posts grid.' ); ?><?php }?>
 				</header>
 				<?php tha_entry_before(); ?>
-											
+									
 					<!-- The Loop Goes Here-->
 					
-				<?php //if ( is_home() ) :
-    			//			query_posts( 'offset=1' );
-	  			//	  	elseif ( is_front_page() ) :
-    			//			query_posts( 'offset=0' );
-      			//	  endif; 
-			        query_posts(array(
-    					is_front_page(),
-						is_home('offset=1'),
-										)
-							   );
-	 	  				  if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?>
+				<?php //query_posts('offset=1'); 
+			if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?>
  
 					<article class="item animatedParent">
              		<a class="teaser animated fadeInUp slow" title="<?php the_title(); ?>" href="<?php the_permalink(); ?>" rel="bookmark" itemprop="image">
@@ -33,7 +26,7 @@ get_header(); ?>
 						$title=get_the_title();
 						$schemaimg='url';
 						$id=get_the_ID();
-						$cats=get_the_category();
+						//$cats=the_terms($post->ID, 'jetpack-portfolio-type'); 
 						if(has_post_thumbnail()):
 						echo the_post_thumbnail(array(425, 9999),array( 'alt' =>$title, 'itemprop' =>$schemaimg));
 						else:
@@ -41,8 +34,9 @@ get_header(); ?>
 						echo '"/>';
 						endif;
 					?>
-					<header><h3><span class="loop-categories"><?php echo $cats[0]->name; ?></span><?php the_title();?></h3></header>
+					<header><h3><?php the_title();?></h3></header>
 					<span class="teaser-meta-container"><?php if (get_comments_number()==0) { ?><?php } else {?><span class="loop-comments"><?php comments_number('0', '1', '%' );?></span><?php }?></span></a>
+					<span class="loop-categories"><?php $cats=the_terms($post->ID, 'jetpack-portfolio-type'); echo $cats[0]->name; ?></span>
 					<?php tha_entry_bottom(); ?>
 					</article>
 				<?php endwhile; endif; ?>	

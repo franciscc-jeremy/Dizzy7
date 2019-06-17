@@ -45,8 +45,12 @@
 		.animated {
 			opacity:0;
 		}
-		.go {
+		.go, .go .title {
 			opacity:1;
+			-webkit-filter: blur(0px) brightness(100%)!important;
+			filter: blur(0px) brightness(100%)!important;
+			-moz-transition: all 2.5s ease-in-out;
+			-webkit-transition: all 2.5s ease-in-out;
 		}
 		body>nav, main, footer, header {
 			width:100%;
@@ -326,7 +330,7 @@
                 <?php echo get_avatar( get_the_author_meta('ID'), 60); ?>
                 <p>Posted By: <?php the_author_posts_link(); ?> <br/><span><?php the_date();?></span></p>
                 <p class="cat"><?php $cats=get_the_category(); echo $cats[0]->name; ?></p>
-                <a href="<?php the_permalink();?>" class="button">Read More</a>
+                <a href="<?php the_permalink();?>#article-header" class="button">Read More</a>
 				</div>
             <?php endwhile; wp_reset_postdata();?>
      	<?php } else if (is_author()) {?>
@@ -336,6 +340,16 @@
 			<h1 class="title blur animated fadeInDown slow" data-id="2"><?php post_type_archive_title(); ?></h1>
 		<?php } else if (is_archive()) {?>
 			<h1 class="title blur animated fadeInDown slow" data-id="2"><?php single_cat_title( '', true ); ?></h1>
+		<?php } else if (is_archive('archive-jetpack-portfolio')) {?>
+		
+		<h1>Latest Project</h1>
+	        <?php $the_query = new WP_Query( 'posts_per_page=1' ); ?><?php while ($the_query -> have_posts()) : $the_query -> the_post(); ?>
+                <div class="latest-post blur animated fadeInDown slow" data-id="1">
+					<h2 class="title"><?php the_title();?><?php if ( get_post_meta(get_the_id(), 'subtitle', true) ) { ?><br/><span class="subtitle"><?php echo get_post_meta(get_the_id(), 'subtitle', true) ?></span><?php } ?></h2>
+                <a href="<?php the_permalink();?>#article-header" class="button">Read More</a>
+				</div>
+            <?php endwhile; wp_reset_postdata();?>
+		
 		<?php } else if (is_single()) { ?>
 			<h1 class="title blur animated fadeInDown slow" data-id="2"><?php the_title();?><?php if ( get_post_meta(get_the_id(), 'subtitle', true) ) { ?><br/><span class="subtitle"><?php echo get_post_meta(get_the_id(), 'subtitle', true) ?></span><?php } ?></h1>
 			<?php if (have_posts()) : ?><?php while (have_posts()) : the_post(); ?>
