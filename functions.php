@@ -11,13 +11,13 @@ function dseven_enqueue_style() {
 	wp_enqueue_style( 'dizzyseven-guttenberg', get_template_directory_uri() . '/dizzy-gutenberg.css' );
 	wp_enqueue_style( 'dizzyseven-animateit', get_template_directory_uri() . '/include/animate-it/css/animations.css' );
 	if (get_theme_mod('diz-custom-typography-css')) {
-	     wp_enqueue_style( 'dizzyseven-guttenberg-custom-editor', get_template_directory_uri() . '/custom-styles.css.php', false, '@@pkg.version', 'all' );
+	     wp_enqueue_style( 'dizzyseven-guttenberg-custom-editor', get_template_directory_uri() . '/custom-styles.css.php', false, true );
 	 }
 	if (get_theme_mod('google_font_setting')) {
-	     wp_enqueue_style( 'dizzyseven-google-font', get_theme_mod( 'google_font_setting', '' ), false, '@@pkg.version', 'all' );
+	     wp_enqueue_style( 'dizzyseven-google-font', get_theme_mod( 'google_font_setting', '' ), false, true );
 	 }
 	if (get_theme_mod('custom_font_setting')) {
-	     wp_enqueue_style( 'dizzyseven-custom-font', get_theme_mod( 'custom_font_setting', '' ), false, '@@pkg.version', 'all' );
+	     wp_enqueue_style( 'dizzyseven-custom-font', get_theme_mod( 'custom_font_setting', '' ), false, true );
 	 }
 }
 
@@ -391,6 +391,15 @@ function dizzy_widgets_init() {
 		'before_title' => '<h3>',
 		'after_title' => '</h3>',
 	) );
+	
+	register_sidebar( array(
+		'name' => 'STLPlaySports Events',
+		'id' => 'stlps-events',
+		'before_widget' => '<div class="stlps-events">',
+		'after_widget' => '</div>',
+		'before_title' => '<h3>',
+		'after_title' => '</h3>',
+	) );
 }
 
 add_action( 'widgets_init', 'dizzy_widgets_init' );
@@ -641,6 +650,18 @@ function themedemo_customize($wp_customize) {
         'section' => 'themedemo_demo_settings_social_media',
         'settings'   => 'fb_social_setting',
     ) ) );
+	
+	    //*Instagram*//
+
+	$wp_customize->add_setting( 'ig_social_setting', array(
+        'default'        => '',
+    ) );
+
+    $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'ig_social_setting', array(
+        'label'   => 'Instagram URL',
+        'section' => 'themedemo_demo_settings_social_media',
+        'settings'   => 'ig_social_setting',
+    ) ) );
 		
 		//*Twitter*//
 
@@ -803,6 +824,12 @@ if (get_theme_mod('fb_social_setting')) {
 	echo '<a href="';
 	echo get_theme_mod( 'fb_social_setting', '' ); 
 	echo '" title="Like Us On Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>';
+}
+//Instagram	
+if (get_theme_mod('ig_social_setting')) {
+	echo '<a href="';
+	echo get_theme_mod( 'ig_social_setting', '' ); 
+	echo '" title="Follow Us On Instagram" target="_blank"><i class="fab fa-instagram"></i></a>';
 }
 //Twitter
 if (get_theme_mod('tw_social_setting')) {
@@ -1314,3 +1341,9 @@ function dizzy7_gutenberg_features() {
 }
 
 add_action( 'after_setup_theme', 'dizzy7_gutenberg_features' );
+
+/* Add Role for View Umpire Availibility Form List */
+$client_role = add_role('clientmanager', 'Client Manager',
+array (
+  'read' => TRUE // true allows this capability
+));
