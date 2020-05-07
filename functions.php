@@ -281,7 +281,7 @@ add_action( 'after_setup_theme', 'my_theme_add_editor_styles' );
 add_theme_support("aesop-component-styles", array("parallax", "image", "quote", "gallery", "content", "video", "audio", "collection", "chapter", "document", "character", "map", "timeline" ) );
 
 // Add the open close button to hide the toolbar
-function add_open_close_toolbar () {
+/*function add_open_close_toolbar () {
 	global $comment;
 	?>
 <?php if (is_user_logged_in()) { ?>
@@ -306,9 +306,9 @@ function add_open_close_toolbar () {
 
 <?php } ?>
 <?php
-}
+}*/
 
-add_action('wp_footer', 'add_open_close_toolbar');
+//add_action('wp_footer', 'add_open_close_toolbar');
 add_filter('widget_text', 'do_shortcode');
 
 // Move Admin bar to bottom
@@ -327,10 +327,35 @@ function fb_move_admin_bar() { ?>
 		}
 		#wpadminbar {
 			top: auto !important;
-			bottom: 0;
+			bottom:-40px;
+			-moz-transition:all 0.35s ease-in-out;
+	  		-webkit-transition:all 0.35s ease-in-out;
 		}
 		#wpadminbar .quicklinks .menupop ul {
 			bottom: 0px;
+		}
+		/*Add to Dizzy 8*/
+		#wpadminbar::before {
+			content: "ADMIN";
+			text-align:center;
+    		top: -33px;
+			left:50%;
+    		background: #23282d;
+    		color: #fff;
+    		display: block;
+    		position: absolute;
+    		padding: .05em 2em;
+    		border-bottom: 1px solid #666;
+			transform:translateX(-50%);
+		}
+		#wpadminbar:hover {
+			bottom:0;
+			-moz-transition:all 0.35s ease-in-out;
+	  		-webkit-transition:all 0.35s ease-in-out;
+			border-bottom:15px solid #23282d;
+		}
+		#wpadminbar:hover::before {
+			width:100%;
 		}
 		.ab-sub-wrapper {
 			bottom:27px!important;
@@ -356,7 +381,8 @@ function thesis_openhooks_menu() {
 	$wp_admin_bar->add_menu(array(
 			'id' => 'openhook',
 			'title' => __('OpenHook'),
-			'href' => '/wp-admin/options-general.php?page=openhook&tab=tha'
+			'href' => admin_url('options-general.php?page=openhook&tab=tha')
+			//'href' => $bloginfo('url')'/wp-admin/options-general.php?page=openhook&tab=tha'
 	));
 }
 
@@ -1341,9 +1367,3 @@ function dizzy7_gutenberg_features() {
 }
 
 add_action( 'after_setup_theme', 'dizzy7_gutenberg_features' );
-
-/* Add Role for View Umpire Availibility Form List */
-$client_role = add_role('clientmanager', 'Client Manager',
-array (
-  'read' => TRUE // true allows this capability
-));

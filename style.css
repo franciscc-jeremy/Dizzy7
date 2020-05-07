@@ -1,10 +1,10 @@
 /*
 Theme Name: Dizzy-Seven Theme
-Theme URI: http://jeremyfrancis.sendasites.com/dizzy-seven
+Theme URI: http://jeremyfrancis.dev/dizzy-seven
 Author: Jeremy Francis
-Author URI: http://jeremyfrancis.sendasites.com
+Author URI: http://jeremyfrancis.dev
 Description: Custom Theme Framework For People and Coders
-Version: 1.5
+Version: 1.9
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: css grid, html 5
@@ -110,7 +110,7 @@ figure {
 }
 .entrytext blockquote::before {
     content: "\f086";
-	font: 400 2.5em/1em Font Awesome\ 5 Free;
+	font: 400 2.5em/1em "Font Awesome 5 Pro";
 	color: var(--main-color);
 	position: absolute;
 	top: -33px;
@@ -137,7 +137,7 @@ cite {
 }
 cite::before {
 	content: "\f054";
-	font: normal 1em/1em Font Awesome\ 5 Free;
+	font: normal 1em/1em "Font Awesome 5 Pro";
 	margin: 0 .25em 0 -1.25em;
 }
 .callout {
@@ -161,7 +161,7 @@ cite::before {
   color:var(--second-color);
 }
 .entrytext ul, .entrytext ol {
-	margin: 1.5em 0;
+	margin: 1.5em 2.5em;
 	grid-column: 2/-1;
 	padding: 0;
 }
@@ -305,6 +305,31 @@ cite::before {
 }
 #nav-below .nav-next {
 	float: right;
+}
+#nav-below .navigation {
+    display: table;
+    margin: 0 auto;
+}
+#nav-below .navigation p {
+    font-size: 2.5em;
+}
+#nav-below p a {
+    text-transform: uppercase;
+	display:inline-block;
+	box-sizing:border-box;
+	padding:0 2em;
+	-moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+}
+#nav-below p a:hover {
+	transform:scale(1.25) translateX(-50px);
+}
+#nav-below p a:nth-child(3):hover, #nav-below p a:nth-child(2):hover {
+	transform:scale(1.25) translateX(50px)!important;
+}
+#nav-below i {
+    margin: 0 3em;
+    color: var(--main-color);
 }
 .copyright {
   text-align:center;
@@ -468,7 +493,7 @@ footer p {
 	color:#fff;
 }
 .social-share span {
-	font: normal 1em 'FontAwesome';
+	font: normal 1em "Font Awesome 5 Pro";
 	margin: 3px 5px 5px -3px;
 	display: table;
 	float: left;
@@ -506,8 +531,10 @@ footer p {
 /* Prev-Next */
 #cooler-nav {
 	display: table;
-	width: 100%;
-	margin-bottom: 50px;
+    width: 100%;
+    margin-bottom: 50px;
+    height: 150px;
+    position: relative;
 }
 .nav-box {
 	width:initial;
@@ -524,19 +551,20 @@ footer p {
 .nav-box a {
 	font: bold 2.5em 'Oswald', sans-serif;
 	display: table;
-	position: relative;
 	width: 300px;
+    height: 350px;
 }
 .nav-box img {
 	height: 100px;
     width: 100px;
 }
 .nav-box a p {
-	margin:0;
-	position: absolute;
-	left: 145px;
-	top: 50%;
-	transform: translateY(-50%);
+	margin: 0;
+    position: absolute;
+    left: 145px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25%;
 }
 .next a p {
 	left: auto!important;

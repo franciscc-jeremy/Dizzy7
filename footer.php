@@ -13,8 +13,9 @@
 				?></a>  |  All rights reserved  |  <a href="<?php bloginfo('url');?>/privacy">Privacy Policy</a>  |  <a href="<?php bloginfo('url');?>/disclaimer">Disclaimer</a></p>
 		<?php tha_footer_bottom(); ?>
 		
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800%7cOpen+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700|Open+Sans:400,300,700,800&display=swap" rel="stylesheet">
+		<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">-->
+		<script src="https://kit.fontawesome.com/7451d23f0a.js" crossorigin="anonymous"></script>
 
 
 		
