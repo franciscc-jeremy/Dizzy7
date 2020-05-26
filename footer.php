@@ -22,25 +22,35 @@
 		<?php wp_footer(); ?>
 		<style>
 			/*Buttons and stuff*/
-		a[href$=".pdf"] {
-			padding: .5em 7em .5em 1.5em;
+		form button, input[type=button], input[type=submit], .teaser_link, .button, .wp-block-button__link {
+  			background:var(--main-color);
+  			border:none;
+  			color:#fff;
+  			text-transform:uppercase;
 		}
-		form button, input[type=button], input[type=submit], .teaser_link, .button, a[href$=".pdf"], .wp-block-button__link {
-  			background:var(--main-color)!important;
-  			border:none!important;
-  			color:#fff!important;
-  			text-transform:uppercase!important;
-		}
-		form button:hover, input[type=button]:hover, input[type=submit]:hover, .teaser_link:hover, .button:hover, a[href$=".pdf"]:hover, .wp-block-button__link:hover {
-  			background:var(--second-color)!important;
-  			cursor:pointer!important;
-  			color:#fff!important;
-  			border:none!important;
+		form button:hover, input[type=button]:hover, input[type=submit]:hover, .teaser_link:hover, .button:hover, .wp-block-button__link:hover {
+  			background:var(--second-color);
+  			cursor:pointer;
+  			color:#fff;
+  			border:none;
 		}
 		form button, input[type=button], input[type=submit], .teaser_link, .button {
-  			text-transform:uppercase!important;
-			padding:.75em 1.5em!important;
-			display:table!important;
+  			text-transform:uppercase;
+			padding:.75em 1.5em;
+			display:table;
+		}
+		a[href$=".pdf"] {
+    		padding: 0;
+		}
+		a[href$=".pdf"]:after {
+    		content: "…\f381 \f1c1";
+    	    font-family: "Font Awesome 5 Free";
+    		font-weight: 900;
+       		margin-left: 2em;
+    		display: inline-block;
+			font-size: .75em;
+			letter-spacing: .25em;
+    		opacity: .65;
 		}
 		a {
   			color:var(--main-color);
@@ -66,10 +76,10 @@
     		clear: both!important;
     		display: block!important;
 		}
-			.plyr__controls button {
+		.plyr__controls button {
 				padding:initial!important;
 				display:initial!important;
-			}
+		}
 		</style>
 		<script>// <![CDATA[
         	jQuery(document).ready( function() {
