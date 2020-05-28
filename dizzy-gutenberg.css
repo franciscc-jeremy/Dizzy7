@@ -30,6 +30,22 @@
 	font-size: 1.5vw;
 	line-height: 2.5vw;
 }
+.has-text-align-right {
+		text-align:right!important;
+}
+.has-text-align-left {
+		text-align:left!important;
+}
+.has-text-align-center {
+		text-align:center!important;
+}
+.is-style-wide {
+    border-bottom-width: 0;
+    margin: 4em -17.76%;
+}
+.is-style-default, .is-style-dots {
+    margin: 4em 20%;
+}
 
 /*Mobile Resets */
 @media screen and (max-width: 782px) {
