@@ -4,7 +4,7 @@ Theme URI: http://jeremyfrancis.dev/dizzy-seven
 Author: Jeremy Francis
 Author URI: http://jeremyfrancis.dev
 Description: Custom Theme Framework For People and Coders
-Version: 1.9
+Version: 1.9.2
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: css grid, html 5
@@ -14,7 +14,7 @@ Text Domain: dizzy-seven
 /* Base Layout */
 html { 
 	margin-top: 0px !important; 
-	overflow-x:hidden;
+	/*overflow-x:hidden;*/
 }
 html body { 
 	margin-top: 0px !important; 
