@@ -41,7 +41,7 @@ add_action( 'enqueue_block_editor_assets', 'd7_gutenberg_styles' );
 
 function dseven_jquery_enqueue() {
    wp_deregister_script('jquery');
-   wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js', array(), null, true);
+   wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js', array(), null, true);
    wp_enqueue_script('jquery');
 }
 
