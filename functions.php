@@ -62,7 +62,7 @@ function dseven_sweetalert_scripts() {
 add_action( 'wp_enqueue_scripts', 'dseven_sweetalert_scripts' );
 
 function dseven_animate_it() {
-	wp_register_script('dseven_animate_it', get_template_directory_uri() . '/include/parallax/parallax.min.js', 
+	wp_register_script('dseven_animate_it', get_template_directory_uri() . '/include/animate-it/js/css3-animate-it.js', 
 	array('jquery'),'', true);
 	wp_enqueue_script('dseven_animate_it');
 }
@@ -70,7 +70,7 @@ function dseven_animate_it() {
 add_action( 'wp_enqueue_scripts', 'dseven_animate_it' );
 
 function dseven_parallaxjs() {
-	wp_register_script('dseven_parallaxjs', get_template_directory_uri() . '/include/animate-it/js/css3-animate-it.js', 
+	wp_register_script('dseven_parallaxjs', get_template_directory_uri() . '/include/parallax/parallax.min.js', 
 	array('jquery'),'', true);
 	wp_enqueue_script('dseven_parallaxjs');
 }
